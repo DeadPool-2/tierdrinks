@@ -971,3 +971,15 @@ label.field span {
   color: var(--text);
 }
 
+/* uniform white tile behind product photos (sources mix white-bg JPEG and
+   transparent PNG) → consistent "product on white" look. Placeholders (.ph)
+   fill the tile with the brand gradient, so they are unaffected. */
+.card .thumb,
+.m-thumb,
+.tm-thumb {
+  background: #fff;
+}
+.card .thumb img {
+  padding: 10px;
+}
+
