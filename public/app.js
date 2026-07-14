@@ -202,6 +202,17 @@ const drankCount = (drinkId, user) =>
   state.log.filter((e) => e.drinkId === drinkId && (!user || e.user === user))
     .length;
 
+// brand display order: Monster, Red Bull pinned first, then first-seen order
+function brandOrder() {
+  const seen = [];
+  for (const d of state.drinks) if (!seen.includes(d.brand)) seen.push(d.brand);
+  const pinned = ["Monster", "Red Bull"];
+  return [
+    ...pinned.filter((b) => seen.includes(b)),
+    ...seen.filter((b) => !pinned.includes(b)),
+  ];
+}
+
 // ---------- api ----------
 async function loadState() {
   const r = await fetch("/api/state");
@@ -269,6 +280,8 @@ function catalogList() {
         .toLowerCase()
         .includes(q)
     );
+  const order = brandOrder();
+  list.sort((a, b) => order.indexOf(a.brand) - order.indexOf(b.brand));
   return list;
 }
 
@@ -309,7 +322,7 @@ function cardMarkup(d) {
 }
 
 function renderCatalog() {
-  const brands = [...new Set(state.drinks.map((d) => d.brand))].sort();
+  const brands = brandOrder();
   const collections = state.brandFilter
     ? [
         ...new Set(
