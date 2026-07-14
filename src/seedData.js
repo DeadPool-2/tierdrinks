@@ -1,11 +1,15 @@
-// Seed catalog: main RU-market energy drinks (v1, sodas come later).
+// Seed catalog: main RU-market energy drinks with brand collections/lines.
 // image === null → frontend renders a branded placeholder tile.
-// price in RUB, volume in liters. Edit freely in the app.
+// price in RUB (starting estimate; users add dated prices later), volume in liters.
 
-const D = (brand, name, flavor, volume, price, description) => ({
+import { tagOf } from "./flavors.js";
+
+const D = (brand, collection, name, flavor, volume, price, description) => ({
   brand,
+  collection, // line within the brand, or null
   name,
   flavor,
+  flavorTag: tagOf(`${name} ${flavor}`),
   category: "energy",
   volume,
   price,
@@ -28,9 +32,10 @@ export const BRAND_COLORS = {
 };
 
 export const SEED_DRINKS = [
-  // Red Bull
+  // ─── Red Bull ─── Classic / Editions
   D(
     "Red Bull",
+    "Classic",
     "Red Bull",
     "Оригинал",
     0.355,
@@ -39,6 +44,7 @@ export const SEED_DRINKS = [
   ),
   D(
     "Red Bull",
+    "Classic",
     "Red Bull Sugarfree",
     "Без сахара",
     0.355,
@@ -47,6 +53,7 @@ export const SEED_DRINKS = [
   ),
   D(
     "Red Bull",
+    "Editions",
     "Red Bull Red Edition",
     "Арбуз",
     0.355,
@@ -55,6 +62,7 @@ export const SEED_DRINKS = [
   ),
   D(
     "Red Bull",
+    "Editions",
     "Red Bull Blue Edition",
     "Черника",
     0.355,
@@ -63,6 +71,7 @@ export const SEED_DRINKS = [
   ),
   D(
     "Red Bull",
+    "Editions",
     "Red Bull Tropical",
     "Тропические фрукты",
     0.355,
@@ -71,6 +80,7 @@ export const SEED_DRINKS = [
   ),
   D(
     "Red Bull",
+    "Editions",
     "Red Bull Green Edition",
     "Кактус",
     0.355,
@@ -78,68 +88,237 @@ export const SEED_DRINKS = [
     "Экзотический кактус."
   ),
 
-  // Monster (Black Monster в РФ)
+  // ─── Monster ─── Original / Ultra / Juiced / Rehab / Java / Reserve
   D(
     "Monster",
+    "Original",
     "Monster Energy",
     "Оригинал",
     0.449,
-    130,
+    140,
     "Мощный цитрус-микс, зелёная банка."
   ),
   D(
     "Monster",
-    "Monster Ultra",
-    "Белый, без сахара",
-    0.449,
-    130,
-    "Лёгкий цитрус, ноль сахара."
-  ),
-  D("Monster", "Monster Mango Loco", "Манго", 0.449, 140, "Тропическое манго."),
-  D(
-    "Monster",
-    "Monster Pipeline Punch",
-    "Маракуйя-апельсин",
-    0.449,
-    140,
-    "Пунш из маракуйи и апельсина."
-  ),
-  D(
-    "Monster",
+    "Original",
     "Monster Assault",
     "Кола-вишня",
     0.449,
-    130,
+    140,
     "Тёмный кола-вишнёвый профиль."
   ),
   D(
     "Monster",
-    "Monster Ripper",
-    "Мультифрукт",
+    "Ultra",
+    "Monster Ultra",
+    "Без сахара",
     0.449,
-    140,
-    "Освежающий фруктовый микс."
+    150,
+    "Чёрная Ultra, ноль сахара."
   ),
   D(
     "Monster",
-    "Monster Khaos",
-    "Сок-микс",
+    "Ultra",
+    "Monster Ultra White",
+    "Цитрус, без сахара",
     0.449,
-    140,
+    150,
+    "Лёгкий цитрус, ноль сахара."
+  ),
+  D(
+    "Monster",
+    "Ultra",
+    "Monster Ultra Paradise",
+    "Зелёное яблоко-киви",
+    0.449,
+    150,
+    "Райский зелёный, без сахара."
+  ),
+  D(
+    "Monster",
+    "Ultra",
+    "Monster Ultra Sunrise",
+    "Апельсин, без сахара",
+    0.449,
+    150,
+    "Апельсиновый рассвет."
+  ),
+  D(
+    "Monster",
+    "Ultra",
+    "Monster Ultra Rosá",
+    "Клубника, без сахара",
+    0.449,
+    150,
+    "Розовая клубника."
+  ),
+  D(
+    "Monster",
+    "Ultra",
+    "Monster Ultra Watermelon",
+    "Арбуз, без сахара",
+    0.449,
+    150,
+    "Арбуз без сахара."
+  ),
+  D(
+    "Monster",
+    "Ultra",
+    "Monster Ultra Fiesta Mango",
+    "Манго, без сахара",
+    0.449,
+    150,
+    "Манго-фиеста."
+  ),
+  D(
+    "Monster",
+    "Ultra",
+    "Monster Ultra Peachy Keen",
+    "Персик, без сахара",
+    0.449,
+    150,
+    "Персиковый."
+  ),
+  D(
+    "Monster",
+    "Juiced",
+    "Monster Mango Loco",
+    "Манго",
+    0.449,
+    150,
+    "Тропическое манго."
+  ),
+  D(
+    "Monster",
+    "Juiced",
+    "Monster Pipeline Punch",
+    "Маракуйя-апельсин",
+    0.449,
+    150,
+    "Пунш из маракуйи и апельсина."
+  ),
+  D(
+    "Monster",
+    "Juiced",
+    "Monster Khaos",
+    "Мультифрукт",
+    0.449,
+    150,
     "Полусок, микс фруктов."
   ),
   D(
     "Monster",
-    "Monster Ultra Paradise",
-    "Зелёное яблоко-киви",
+    "Juiced",
+    "Monster Pacific Punch",
+    "Ягодный пунш",
     0.449,
-    140,
-    "Райский зелёный, без сахара."
+    150,
+    "Ягодно-цитрусовый пунш."
+  ),
+  D(
+    "Monster",
+    "Juiced",
+    "Monster Monarch",
+    "Персик-нектарин",
+    0.449,
+    150,
+    "Персик и нектарин."
+  ),
+  D(
+    "Monster",
+    "Juiced",
+    "Monster Aussie Lemonade",
+    "Лимонад",
+    0.449,
+    150,
+    "Австралийский лимонад."
+  ),
+  D(
+    "Monster",
+    "Rehab",
+    "Monster Rehab Tea + Lemonade",
+    "Чай-лимонад",
+    0.458,
+    160,
+    "Негазированный чай с лимонадом."
+  ),
+  D(
+    "Monster",
+    "Rehab",
+    "Monster Rehab Peach Tea",
+    "Персиковый чай",
+    0.458,
+    160,
+    "Персиковый холодный чай."
+  ),
+  D(
+    "Monster",
+    "Rehab",
+    "Monster Rehab Wildberry Tea",
+    "Ягодный чай",
+    0.458,
+    160,
+    "Ягодный холодный чай."
+  ),
+  D(
+    "Monster",
+    "Java",
+    "Monster Java Mean Bean",
+    "Кофе",
+    0.443,
+    165,
+    "Кофе с молоком и энергией."
+  ),
+  D(
+    "Monster",
+    "Java",
+    "Monster Java Loca Moca",
+    "Кофе-мокко",
+    0.443,
+    165,
+    "Мокко-кофе."
+  ),
+  D(
+    "Monster",
+    "Java",
+    "Monster Java Salted Caramel",
+    "Солёная карамель",
+    0.443,
+    165,
+    "Кофе с солёной карамелью."
+  ),
+  D(
+    "Monster",
+    "Reserve",
+    "Monster Reserve White Pineapple",
+    "Ананас",
+    0.449,
+    160,
+    "Белый ананас."
+  ),
+  D(
+    "Monster",
+    "Reserve",
+    "Monster Reserve Watermelon",
+    "Арбуз",
+    0.449,
+    160,
+    "Арбуз, лимитка."
+  ),
+  D(
+    "Monster",
+    "Reserve",
+    "Monster Reserve Orange Dreamsicle",
+    "Апельсин-крем",
+    0.449,
+    160,
+    "Апельсин со сливками."
   ),
 
-  // Adrenaline Rush
+  // ─── Adrenaline Rush ─── Rush / Juicy / Game Fuel
   D(
     "Adrenaline Rush",
+    "Rush",
     "Adrenaline Rush",
     "Оригинал",
     0.449,
@@ -148,6 +327,16 @@ export const SEED_DRINKS = [
   ),
   D(
     "Adrenaline Rush",
+    "Rush",
+    "Adrenaline Zero",
+    "Без сахара",
+    0.449,
+    120,
+    "Классика без сахара."
+  ),
+  D(
+    "Adrenaline Rush",
+    "Juicy",
     "Adrenaline Juicy",
     "Манго-персик",
     0.449,
@@ -156,6 +345,7 @@ export const SEED_DRINKS = [
   ),
   D(
     "Adrenaline Rush",
+    "Game Fuel",
     "Adrenaline Game Fuel",
     "Ягодный микс",
     0.449,
@@ -164,56 +354,84 @@ export const SEED_DRINKS = [
   ),
   D(
     "Adrenaline Rush",
+    "Game Fuel",
     "Adrenaline Red",
     "Красные ягоды",
     0.449,
     120,
     "Красные ягоды."
   ),
-  D(
-    "Adrenaline Rush",
-    "Adrenaline Zero",
-    "Без сахара",
-    0.449,
-    120,
-    "Классика без сахара."
-  ),
 
-  // Flash Up (флешка)
-  D("Flash Up", "Flash Up Energy", "Оригинал", 0.45, 75, "Бюджетная классика."),
+  // ─── Flash Up ───
   D(
     "Flash Up",
+    null,
+    "Flash Up Energy",
+    "Оригинал",
+    0.45,
+    75,
+    "Бюджетная классика."
+  ),
+  D(
+    "Flash Up",
+    null,
     "Flash Up Wildberry",
     "Лесные ягоды",
     0.45,
     75,
     "Лесные ягоды."
   ),
-  D("Flash Up", "Flash Up Zero", "Без сахара", 0.45, 75, "Ноль сахара."),
-  D("Flash Up", "Flash Up Mojito", "Мохито", 0.45, 75, "Мятный мохито."),
-  D("Flash Up", "Flash Up Cola", "Кола", 0.45, 75, "Кола-вкус."),
+  D("Flash Up", null, "Flash Up Zero", "Без сахара", 0.45, 75, "Ноль сахара."),
+  D("Flash Up", null, "Flash Up Mojito", "Мохито", 0.45, 75, "Мятный мохито."),
+  D("Flash Up", null, "Flash Up Cola", "Кола", 0.45, 75, "Кола-вкус."),
 
-  // Gorilla
-  D("Gorilla", "Gorilla", "Оригинал", 0.45, 90, "Плотный классический вкус."),
-  D("Gorilla", "Gorilla Mango", "Манго", 0.45, 90, "Спелое манго."),
-  D("Gorilla", "Gorilla Energy Berry", "Ягода", 0.45, 90, "Ягодный микс."),
+  // ─── Gorilla ───
   D(
     "Gorilla",
+    null,
+    "Gorilla",
+    "Оригинал",
+    0.45,
+    90,
+    "Плотный классический вкус."
+  ),
+  D("Gorilla", null, "Gorilla Mango", "Манго", 0.45, 90, "Спелое манго."),
+  D(
+    "Gorilla",
+    null,
+    "Gorilla Energy Berry",
+    "Ягода",
+    0.45,
+    90,
+    "Ягодный микс."
+  ),
+  D(
+    "Gorilla",
+    null,
     "Gorilla Blueberry",
     "Черника-лёд",
     0.45,
     90,
     "Черника со льдом."
   ),
-  D("Gorilla", "Gorilla Cherry", "Вишня", 0.45, 90, "Вишнёвый."),
+  D("Gorilla", null, "Gorilla Cherry", "Вишня", 0.45, 90, "Вишнёвый."),
 
-  // Burn
-  D("Burn", "Burn", "Оригинал", 0.449, 110, "Пряный классический Burn."),
-  D("Burn", "Burn Mango", "Манго", 0.449, 110, "Манго."),
-  D("Burn", "Burn Apple-Kiwi", "Яблоко-киви", 0.449, 110, "Яблоко и киви."),
-  D("Burn", "Burn Zero", "Без сахара", 0.449, 110, "Ноль сахара."),
+  // ─── Burn ───
+  D("Burn", null, "Burn", "Оригинал", 0.449, 110, "Пряный классический Burn."),
+  D("Burn", null, "Burn Mango", "Манго", 0.449, 110, "Манго."),
   D(
     "Burn",
+    null,
+    "Burn Apple-Kiwi",
+    "Яблоко-киви",
+    0.449,
+    110,
+    "Яблоко и киви."
+  ),
+  D("Burn", null, "Burn Zero", "Без сахара", 0.449, 110, "Ноль сахара."),
+  D(
+    "Burn",
+    null,
     "Burn Dark Energy",
     "Тёмные ягоды",
     0.449,
@@ -221,28 +439,38 @@ export const SEED_DRINKS = [
     "Тёмный ягодный профиль."
   ),
 
-  // Drive Me
-  D("Drive Me", "Drive Me", "Оригинал", 0.449, 100, "Ровная классика."),
+  // ─── Drive Me ───
+  D("Drive Me", null, "Drive Me", "Оригинал", 0.449, 100, "Ровная классика."),
   D(
     "Drive Me",
+    null,
     "Drive Me Mango-Maracuja",
     "Манго-маракуйя",
     0.449,
     100,
     "Манго и маракуйя."
   ),
-  D("Drive Me", "Drive Me Zero", "Без сахара", 0.449, 100, "Без сахара."),
+  D("Drive Me", null, "Drive Me Zero", "Без сахара", 0.449, 100, "Без сахара."),
 
-  // Tornado
-  D("Tornado", "Tornado Energy", "Оригинал", 0.45, 85, "Дешёвый и злой."),
-  D("Tornado", "Tornado Cherry", "Вишня", 0.45, 85, "Вишня."),
-  D("Tornado", "Tornado Mojito", "Мохито", 0.45, 85, "Мохито."),
-  D("Tornado", "Tornado Storm", "Ягодный шторм", 0.45, 85, "Ягодный микс."),
+  // ─── Tornado ───
+  D("Tornado", null, "Tornado Energy", "Оригинал", 0.45, 85, "Дешёвый и злой."),
+  D("Tornado", null, "Tornado Cherry", "Вишня", 0.45, 85, "Вишня."),
+  D("Tornado", null, "Tornado Mojito", "Мохито", 0.45, 85, "Мохито."),
+  D(
+    "Tornado",
+    null,
+    "Tornado Storm",
+    "Ягодный шторм",
+    0.45,
+    85,
+    "Ягодный микс."
+  ),
 
-  // E-ON
-  D("E-ON", "E-ON", "Оригинал", 0.449, 95, "Классический E-ON."),
+  // ─── E-ON ───
+  D("E-ON", null, "E-ON", "Оригинал", 0.449, 95, "Классический E-ON."),
   D(
     "E-ON",
+    null,
     "E-ON Mango-Maracuja",
     "Манго-маракуйя",
     0.449,
@@ -251,27 +479,37 @@ export const SEED_DRINKS = [
   ),
   D(
     "E-ON",
+    null,
     "E-ON Barberry",
     "Барбарис",
     0.449,
     95,
     "Ностальгический барбарис."
   ),
-  D("E-ON", "E-ON Litchi", "Личи", 0.449, 95, "Экзотическое личи."),
+  D("E-ON", null, "E-ON Litchi", "Личи", 0.449, 95, "Экзотическое личи."),
 
-  // Jaguar (яга)
+  // ─── Jaguar ───
   D(
     "Jaguar",
+    null,
     "Jaguar Line",
     "Оригинал",
     0.45,
     95,
     "Слабоалкогольный энергетик, классика."
   ),
-  D("Jaguar", "Jaguar Super", "Крепкий", 0.45, 95, "Более крепкая версия."),
-  D("Jaguar", "Jaguar Mango", "Манго", 0.45, 95, "Манго."),
+  D(
+    "Jaguar",
+    null,
+    "Jaguar Super",
+    "Крепкий",
+    0.45,
+    95,
+    "Более крепкая версия."
+  ),
+  D("Jaguar", null, "Jaguar Mango", "Манго", 0.45, 95, "Манго."),
 
-  // Volt
-  D("Volt", "Volt", "Оригинал", 0.5, 90, "Пол-литра классики."),
-  D("Volt", "Volt Cranberry", "Клюква", 0.5, 90, "Кисловатая клюква."),
+  // ─── Volt ───
+  D("Volt", null, "Volt", "Оригинал", 0.5, 90, "Пол-литра классики."),
+  D("Volt", null, "Volt Cranberry", "Клюква", 0.5, 90, "Кисловатая клюква."),
 ];

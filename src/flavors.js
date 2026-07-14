@@ -1,0 +1,123 @@
+// Official-flavor taxonomy — shared by the seed and the stats section.
+// tagOf() maps a drink's name+flavor to one normalized flavor tag so we can
+// aggregate "favorite flavors" across brands.
+
+// display labels (RU)
+export const FLAVOR_LABELS = {
+  coffee: "Кофе",
+  tea: "Чай",
+  caramel: "Карамель",
+  mango: "Манго",
+  peach: "Персик",
+  cherry: "Вишня",
+  blueberry: "Черника",
+  cranberry: "Клюква",
+  watermelon: "Арбуз",
+  pineapple: "Ананас",
+  strawberry: "Клубника",
+  cactus: "Кактус",
+  lychee: "Личи",
+  barberry: "Барбарис",
+  passion: "Маракуйя",
+  apple: "Яблоко",
+  kiwi: "Киви",
+  mojito: "Мохито",
+  cola: "Кола",
+  lemonade: "Лимонад",
+  orange: "Апельсин",
+  citrus: "Цитрус",
+  grape: "Виноград",
+  tropical: "Тропик",
+  multifruit: "Мультифрукт",
+  berry: "Ягоды",
+  zero: "Без сахара",
+  original: "Оригинал",
+  other: "Другое",
+};
+
+// ordered high→low priority; first group whose token appears wins
+const GROUPS = [
+  [
+    "coffee",
+    [
+      "кофе",
+      "coffee",
+      "мокко",
+      "moca",
+      "эспрессо",
+      "espresso",
+      "латте",
+      "капуч",
+    ],
+  ],
+  ["tea", ["чай", "tea"]],
+  ["caramel", ["карамель", "caramel"]],
+  ["mango", ["манго", "mango"]],
+  ["peach", ["персик", "peach", "нектарин", "nectar"]],
+  ["cherry", ["вишн", "cherry", "черешн"]],
+  ["blueberry", ["черник", "blueberry"]],
+  ["cranberry", ["клюкв", "cranberry"]],
+  ["watermelon", ["арбуз", "watermelon"]],
+  ["pineapple", ["ананас", "pineapple"]],
+  ["strawberry", ["клубник", "strawberry"]],
+  ["cactus", ["кактус", "cactus"]],
+  ["lychee", ["личи", "lychee", "litchi"]],
+  ["barberry", ["барбарис", "barberry"]],
+  ["passion", ["маракуй", "passion", "pipeline"]],
+  ["apple", ["яблок", "apple"]],
+  ["kiwi", ["киви", "kiwi"]],
+  ["mojito", ["мохито", "mojito", "мят", "mint"]],
+  ["cola", ["кола", "cola"]],
+  ["lemonade", ["лимонад", "lemonade"]],
+  ["orange", ["апельсин", "orange", "sunrise", "dreamsicle"]],
+  ["citrus", ["цитрус", "citrus", "лимон", "лайм", "lime", "грейпфрут"]],
+  ["grape", ["виноград", "grape"]],
+  ["tropical", ["тропич", "тропик", "tropical", "tropic"]],
+  [
+    "multifruit",
+    [
+      "мультифрукт",
+      "мультифрут",
+      "сок",
+      "микс",
+      "multifruit",
+      "пунш",
+      "punch",
+      "khaos",
+      "хаос",
+    ],
+  ],
+  ["berry", ["ягод", "berry", "лесн", "wildberry", "pacific"]],
+  [
+    "zero",
+    [
+      "без сахара",
+      "zero",
+      "ultra",
+      "ультра",
+      "sugarfree",
+      "sugar free",
+      "white",
+    ],
+  ],
+  [
+    "original",
+    [
+      "оригинал",
+      "классик",
+      "original",
+      "classic",
+      "energy",
+      "ориджинал",
+      "assault",
+    ],
+  ],
+];
+
+export function tagOf(text) {
+  const t = String(text || "").toLowerCase();
+  for (const [tag, toks] of GROUPS) {
+    if (toks.some((tok) => t.includes(tok))) return tag;
+  }
+  return "other";
+}

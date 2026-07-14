@@ -681,3 +681,288 @@ label.field span {
   font-size: 13px;
   margin: -2px 0 12px;
 }
+
+/* ---------- collections / cards extra ---------- */
+.collbar {
+  margin-top: -2px;
+}
+.filter-chip.sm {
+  padding: 4px 10px;
+  font-size: 12px;
+}
+.card .coll {
+  color: var(--accent);
+}
+.card .status {
+  white-space: nowrap;
+}
+
+/* ---------- sparkline ---------- */
+.spark {
+  vertical-align: middle;
+  display: inline-block;
+}
+
+/* ---------- modal: price row ---------- */
+.price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 8px 12px;
+  margin-bottom: 14px;
+}
+.pr-cur {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.pr-cur b {
+  color: var(--text);
+  font-size: 15px;
+}
+.pr-edit {
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+  color: var(--accent);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.price-edit-box {
+  display: flex;
+  gap: 8px;
+  margin: -6px 0 14px;
+}
+.btn.sm {
+  width: auto;
+  padding: 10px 16px;
+  font-size: 14px;
+  margin-top: 0;
+  border-radius: 12px;
+}
+
+/* ---------- modal: history ---------- */
+.hist {
+  border-top: 1px solid var(--line);
+  margin-top: 6px;
+  padding-top: 12px;
+}
+.hist-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.hist-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.hist-row {
+  display: grid;
+  grid-template-columns: 64px 40px 1fr;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  padding: 4px 0;
+}
+.hist-row .hd {
+  color: var(--muted);
+}
+.hist-row b {
+  color: var(--accent);
+}
+.hist-row .ht {
+  color: var(--muted);
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.link-del {
+  margin-top: 8px;
+  background: none;
+  border: 0;
+  color: var(--bad);
+  font-size: 12px;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+/* ---------- stats ---------- */
+.stat-sec {
+  background: linear-gradient(180deg, var(--card-2), var(--card));
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 14px;
+}
+.stat-sec h3 {
+  margin: 0 0 14px;
+  font-size: 16px;
+}
+.big-nums {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.bignum {
+  flex: 1;
+  text-align: center;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 6px;
+}
+.bignum.hl {
+  border-color: var(--accent);
+}
+.bignum b {
+  display: block;
+  font-size: 26px;
+  font-weight: 800;
+}
+.bignum span {
+  font-size: 12px;
+  color: var(--muted);
+}
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.bar-row {
+  display: grid;
+  grid-template-columns: 92px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
+.bar-lab {
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.bar {
+  height: 10px;
+  background: var(--bg-2);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.bar i {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  min-width: 4px;
+}
+.bar-val {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.scope-toggle {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.scope-toggle button {
+  flex: 1;
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+  color: var(--muted);
+  font-weight: 700;
+  padding: 7px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 13px;
+}
+.scope-toggle button.on {
+  color: var(--text);
+  border-color: var(--accent);
+}
+.mini-cards {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.mini-card {
+  flex: 1;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px;
+  text-align: center;
+}
+.mini-card span {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+}
+.mini-card b {
+  display: block;
+  font-size: 18px;
+  font-weight: 800;
+  margin: 3px 0;
+}
+.mini-card em {
+  font-style: normal;
+  font-size: 11px;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+.muted-note {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+.agree {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.agree-ring {
+  --p: 0;
+  flex: 0 0 84px;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: conic-gradient(var(--accent) calc(var(--p) * 1%), var(--bg-2) 0);
+}
+.agree-ring span {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--card);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 18px;
+}
+.agree-txt {
+  flex: 1;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.agree-txt b {
+  color: var(--text);
+}

@@ -7,6 +7,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { SEED_DRINKS, BRAND_COLORS } from "./src/seedData.js";
+import { tagOf } from "./src/flavors.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT) || 3000;
@@ -63,7 +64,13 @@ const drinkKey = (d) => `${d.brand}|${d.name}|${d.flavor}`;
 const drinkId = (d) => slug(`${d.name}-${d.flavor}`);
 
 // ---------- store ----------
-let db = { drinks: [], ratings: [] };
+let db = { drinks: [], log: [] };
+
+function genId(prefix) {
+  return `${prefix}_${Date.now().toString(36)}_${Math.random()
+    .toString(36)
+    .slice(2, 8)}`;
+}
 
 async function atomicWrite(file, text) {
   const tmp = `${file}.tmp`;
@@ -95,9 +102,14 @@ async function loadDb() {
   try {
     db = JSON.parse(await fs.readFile(DB_PATH, "utf8"));
     if (!Array.isArray(db.drinks)) db.drinks = [];
-    if (!Array.isArray(db.ratings)) db.ratings = [];
+    if (!Array.isArray(db.log)) db.log = [];
+    // migrate legacy `ratings` (upsert) → `log` (append-only)
+    if (Array.isArray(db.ratings)) {
+      for (const r of db.ratings) db.log.push({ id: genId("l"), ...r });
+      delete db.ratings;
+    }
   } catch {
-    db = { drinks: [], ratings: [] };
+    db = { drinks: [], log: [] };
   }
 
   const existing = new Set(db.drinks.map(drinkKey));
@@ -105,21 +117,34 @@ async function loadDb() {
   for (const seed of SEED_DRINKS) {
     if (existing.has(drinkKey(seed))) continue;
     const id = drinkId(seed);
-    db.drinks.push({ id, ...seed, image: imageMap[id] ?? seed.image });
+    const price = seed.price ?? null;
+    db.drinks.push({
+      id,
+      ...seed,
+      image: imageMap[id] ?? seed.image,
+      priceHistory:
+        price != null ? [{ price, ts: nowIso(), user: "seed" }] : [],
+    });
     existing.add(drinkKey(seed));
     added++;
   }
-  // backfill images for drinks seeded before their photo was fetched
+  // backfill fields for drinks seeded before these existed
   let patched = 0;
   for (const d of db.drinks) {
     if (!d.image && imageMap[d.id]) {
       d.image = imageMap[d.id];
       patched++;
     }
+    if (!Array.isArray(d.priceHistory)) {
+      d.priceHistory =
+        d.price != null ? [{ price: d.price, ts: nowIso(), user: "seed" }] : [];
+    }
+    if (d.collection === undefined) d.collection = null;
+    if (!d.flavorTag) d.flavorTag = tagOf(`${d.name} ${d.flavor}`);
   }
   if (added || patched || !db.drinks.length) await saveDb();
   console.log(
-    `[db] ${db.drinks.length} drinks, ${db.ratings.length} ratings (+${added} seeded, ${patched} images)`
+    `[db] ${db.drinks.length} drinks, ${db.log.length} log (+${added} seeded, ${patched} images)`
   );
 }
 
@@ -203,12 +228,13 @@ async function handleApi(req, res, url) {
   if (req.method === "GET" && pathname === "/api/state") {
     return sendJson(res, 200, {
       drinks: db.drinks,
-      ratings: db.ratings,
+      log: db.log,
       brandColors: BRAND_COLORS,
     });
   }
 
-  if (req.method === "POST" && pathname === "/api/ratings") {
+  // append a tasting entry (one drunk can + a rating snapshot)
+  if (req.method === "POST" && pathname === "/api/log") {
     const body = await readBody(req);
     const drink = db.drinks.find((d) => d.id === body.drinkId);
     if (!drink) return sendJson(res, 404, { error: "drink not found" });
@@ -221,7 +247,8 @@ async function handleApi(req, res, url) {
       if (s === null) return sendJson(res, 400, { error: `bad score: ${ax}` });
       scores[ax] = s;
     }
-    const rating = {
+    const entry = {
+      id: genId("l"),
       drinkId: body.drinkId,
       user: body.user,
       ...scores,
@@ -229,34 +256,62 @@ async function handleApi(req, res, url) {
       note: typeof body.note === "string" ? body.note.slice(0, 500) : "",
       ts: nowIso(),
     };
-    const i = db.ratings.findIndex(
-      (r) => r.drinkId === rating.drinkId && r.user === rating.user
-    );
-    if (i >= 0) db.ratings[i] = rating;
-    else db.ratings.push(rating);
+    db.log.push(entry);
     await saveDb();
-    return sendJson(res, 200, { ok: true, rating });
+    return sendJson(res, 200, { ok: true, entry });
+  }
+
+  // undo a mis-logged tasting
+  if (req.method === "DELETE" && pathname.startsWith("/api/log/")) {
+    const id = decodeURIComponent(pathname.slice("/api/log/".length));
+    const before = db.log.length;
+    db.log = db.log.filter((e) => e.id !== id);
+    if (db.log.length === before)
+      return sendJson(res, 404, { error: "not found" });
+    await saveDb();
+    return sendJson(res, 200, { ok: true });
+  }
+
+  // add a dated price point (shared per drink)
+  if (req.method === "POST" && pathname === "/api/price") {
+    const body = await readBody(req);
+    const drink = db.drinks.find((d) => d.id === body.drinkId);
+    if (!drink) return sendJson(res, 404, { error: "drink not found" });
+    const price = Number(body.price);
+    if (!Number.isFinite(price) || price <= 0 || price > 100000)
+      return sendJson(res, 400, { error: "bad price" });
+    const user = body.user === "a" || body.user === "b" ? body.user : "?";
+    if (!Array.isArray(drink.priceHistory)) drink.priceHistory = [];
+    drink.priceHistory.push({ price: Math.round(price), ts: nowIso(), user });
+    drink.price = Math.round(price);
+    await saveDb();
+    return sendJson(res, 200, { ok: true, drink });
   }
 
   if (req.method === "POST" && pathname === "/api/drinks") {
     const body = await readBody(req);
     if (!body.name || !body.brand)
       return sendJson(res, 400, { error: "name and brand required" });
+    const name = String(body.name).slice(0, 80);
+    const flavor = String(body.flavor || "").slice(0, 60);
+    const price = Number(body.price) || null;
     const drink = {
-      id:
-        drinkId({ name: body.name, flavor: body.flavor || "" }) ||
-        slug(`${body.brand}-${Date.now()}`),
+      id: drinkId({ name, flavor }) || slug(`${body.brand}-${Date.now()}`),
       brand: String(body.brand).slice(0, 60),
-      name: String(body.name).slice(0, 80),
-      flavor: String(body.flavor || "").slice(0, 60),
+      collection: body.collection ? String(body.collection).slice(0, 40) : null,
+      name,
+      flavor,
+      flavorTag: tagOf(`${name} ${flavor}`),
       category: body.category === "soda" ? "soda" : "energy",
       volume: Number(body.volume) || null,
-      price: Number(body.price) || null,
+      price,
       description: String(body.description || "").slice(0, 300),
       image:
         typeof body.image === "string" && body.image
           ? body.image.slice(0, 300)
           : null,
+      priceHistory:
+        price != null ? [{ price, ts: nowIso(), user: body.user || "?" }] : [],
     };
     if (db.drinks.some((d) => d.id === drink.id))
       return sendJson(res, 409, { error: "already exists" });
@@ -269,7 +324,7 @@ async function handleApi(req, res, url) {
     const id = decodeURIComponent(pathname.slice("/api/drinks/".length));
     const before = db.drinks.length;
     db.drinks = db.drinks.filter((d) => d.id !== id);
-    db.ratings = db.ratings.filter((r) => r.drinkId !== id);
+    db.log = db.log.filter((e) => e.drinkId !== id);
     if (db.drinks.length === before)
       return sendJson(res, 404, { error: "not found" });
     await saveDb();

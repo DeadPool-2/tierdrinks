@@ -47,7 +47,14 @@ const FLAVOR_GROUPS = {
   passion: ['passion', 'maracuja', 'maracuya', 'marakuya', 'pipeline'],
   apple: ['apple', 'pomme', 'yabloko'],
   kiwi: ['kiwi', 'kivi'],
-  berry: ['berry', 'berries', 'yagod', 'wildberry', 'fruits rouges'],
+  pineapple: ['pineapple', 'ananas'],
+  strawberry: ['strawberry', 'fraise', 'klubnika', 'rosa'],
+  orange: ['orange', 'apelsin', 'sunrise', 'dreamsicle'],
+  lemonade: ['lemonade', 'limonad'],
+  coffee: ['coffee', 'kofe', 'mocha', 'moca', 'mocca', 'espresso', 'latte', 'java', 'bean'],
+  tea: ['tea', 'chai'],
+  caramel: ['caramel', 'karamel'],
+  berry: ['berry', 'berries', 'yagod', 'wildberry', 'fruits rouges', 'pacific'],
   sugarfree: ['zero', 'sugarfree', 'sugar free', 'sans sucre', 'no sugar', 'bez sahar', 'ultra white', 'ultra'],
   storm: ['storm', 'shtorm'],
   original: ['original', 'classic', 'oridzhinal'],
@@ -64,8 +71,9 @@ function groupsOf(text) {
   return hits;
 }
 
-const BLACKLIST =
-  /\b(gum|chewing|bar|barre|chocolate|candy|cookie|biscuit|snack|powder|coffee|cafe|creme|latte|cappuccino|milk|tea|syrup|sirop)\b/;
+// coffee/tea are legit Monster lines (Java/Rehab) → not blacklisted; the
+// brand-token guard in pickBest already rejects generic off-brand cans.
+const BLACKLIST = /\b(gum|chewing|bar|barre|cookie|biscuit|snack|powder|syrup|sirop)\b/;
 
 const BRANDS = [
   { name: 'Red Bull', tags: ['red-bull'], tok: ['red bull', 'redbull'] },
