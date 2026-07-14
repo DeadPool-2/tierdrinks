@@ -1,0 +1,8 @@
+# TierDrinks on shared hosting (Beget). Static files served directly;
+# everything under /api/* is routed to the PHP backend.
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^api(/.*)?$ api.php [QSA,L]
+</IfModule>

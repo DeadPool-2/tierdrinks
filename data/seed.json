@@ -1,0 +1,2277 @@
+{
+  "drinks": [
+    {
+      "id": "red-bull-original",
+      "brand": "Red Bull",
+      "collection": "Classic",
+      "name": "Red Bull",
+      "flavor": "Оригинал",
+      "flavorTag": "original",
+      "category": "energy",
+      "volume": 0.355,
+      "price": 149,
+      "description": "Классика жанра — эталонный вкус энергетика.",
+      "image": "/images/red-bull-original.jpg",
+      "priceHistory": [
+        {
+          "price": 149,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "red-bull-sugarfree-bez-sahara",
+      "brand": "Red Bull",
+      "collection": "Classic",
+      "name": "Red Bull Sugarfree",
+      "flavor": "Без сахара",
+      "flavorTag": "zero",
+      "category": "energy",
+      "volume": 0.355,
+      "price": 149,
+      "description": "Тот же вкус, ноль сахара.",
+      "image": "/images/red-bull-sugarfree-bez-sahara.png",
+      "priceHistory": [
+        {
+          "price": 149,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "red-bull-red-edition-arbuz",
+      "brand": "Red Bull",
+      "collection": "Editions",
+      "name": "Red Bull Red Edition",
+      "flavor": "Арбуз",
+      "flavorTag": "watermelon",
+      "category": "energy",
+      "volume": 0.355,
+      "price": 159,
+      "description": "Летний арбузный профиль.",
+      "image": "/images/red-bull-red-edition-arbuz.jpg",
+      "priceHistory": [
+        {
+          "price": 159,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "red-bull-blue-edition-chernika",
+      "brand": "Red Bull",
+      "collection": "Editions",
+      "name": "Red Bull Blue Edition",
+      "flavor": "Черника",
+      "flavorTag": "blueberry",
+      "category": "energy",
+      "volume": 0.355,
+      "price": 159,
+      "description": "Сладкая черника.",
+      "image": "/images/red-bull-blue-edition-chernika.webp",
+      "priceHistory": [
+        {
+          "price": 159,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "red-bull-tropical-tropicheskie-frukty",
+      "brand": "Red Bull",
+      "collection": "Editions",
+      "name": "Red Bull Tropical",
+      "flavor": "Тропические фрукты",
+      "flavorTag": "tropical",
+      "category": "energy",
+      "volume": 0.355,
+      "price": 159,
+      "description": "Микс тропиков, жёлтая банка.",
+      "image": "/images/red-bull-tropical-tropicheskie-frukty.jpg",
+      "priceHistory": [
+        {
+          "price": 159,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "red-bull-green-edition-kaktus",
+      "brand": "Red Bull",
+      "collection": "Editions",
+      "name": "Red Bull Green Edition",
+      "flavor": "Кактус",
+      "flavorTag": "cactus",
+      "category": "energy",
+      "volume": 0.355,
+      "price": 159,
+      "description": "Экзотический кактус.",
+      "image": "/images/red-bull-green-edition-kaktus.jpg",
+      "priceHistory": [
+        {
+          "price": 159,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "monster-energy-original",
+      "brand": "Monster",
+      "collection": "Original",
+      "name": "Monster Energy",
+      "flavor": "Оригинал",
+      "flavorTag": "original",
+      "category": "energy",
+      "volume": 0.449,
+      "price": 140,
+      "description": "Мощный цитрус-микс, зелёная банка.",
+      "image": "/images/monster-energy-original.jpg",
+      "priceHistory": [
+        {
+          "price": 140,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "monster-assault-kola-vishnya",
+      "brand": "Monster",
+      "collection": "Original",
+      "name": "Monster Assault",
+      "flavor": "Кола-вишня",
+      "flavorTag": "cherry",
+      "category": "energy",
+      "volume": 0.449,
+      "price": 140,
+      "description": "Тёмный кола-вишнёвый профиль.",
+      "image": "/images/monster-assault-kola-vishnya.png",
+      "priceHistory": [
+        {
+          "price": 140,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "monster-ultra-bez-sahara",
+      "brand": "Monster",
+      "collection": "Ultra",
+      "name": "Monster Ultra",
+      "flavor": "Без сахара",
+      "flavorTag": "zero",
+      "category": "energy",
+      "volume": 0.449,
+      "price": 150,
+      "description": "Чёрная Ultra, ноль сахара.",
+      "image": "/images/monster-ultra-bez-sahara.jpg",
+      "priceHistory": [
+        {
+          "price": 150,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "monster-ultra-white-tsitrus-bez-sahara",
+      "brand": "Monster",
+      "collection": "Ultra",
+      "name": "Monster Ultra White",
+      "flavor": "Цитрус, без сахара",
+      "flavorTag": "citrus",
+      "category": "energy",
+      "volume": 0.449,
+      "price": 150,
+      "description": "Лёгкий цитрус, ноль сахара.",
+      "image": "/images/monster-ultra-white-tsitrus-bez-sahara.jpg",
+      "priceHistory": [
+        {
+          "price": 150,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "monster-ultra-paradise-zelenoe-yabloko-kivi",
+      "brand": "Monster",
+      "collection": "Ultra",
+      "name": "Monster Ultra Paradise",
+      "flavor": "Зелёное яблоко-киви",
+      "flavorTag": "apple",
+      "category": "energy",
+      "volume": 0.449,
+      "price": 150,
+      "description": "Райский зелёный, без сахара.",
+      "image": "/images/monster-ultra-paradise-zelenoe-yabloko-kivi.png",
+      "priceHistory": [
+        {
+          "price": 150,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "monster-ultra-sunrise-apelsin-bez-sahara",
+      "brand": "Monster",
+      "collection": "Ultra",
+      "name": "Monster Ultra Sunrise",
+      "flavor": "Апельсин, без сахара",
+      "flavorTag": "orange",
+      "category": "energy",
+      "volume": 0.449,
+      "price": 150,
+      "description": "Апельсиновый рассвет.",
+      "image": "/images/monster-ultra-sunrise-apelsin-bez-sahara.jpg",
+      "priceHistory": [
+        {
+          "price": 150,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "monster-ultra-ros-klubnika-bez-sahara",
+      "brand": "Monster",
+      "collection": "Ultra",
+      "name": "Monster Ultra Rosá",
+      "flavor": "Клубника, без сахара",
+      "flavorTag": "strawberry",
+      "category": "energy",
+      "volume": 0.449,
+      "price": 150,
+      "description": "Розовая клубника.",
+      "image": "/images/monster-ultra-ros-klubnika-bez-sahara.png",
+      "priceHistory": [
+        {
+          "price": 150,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "monster-ultra-watermelon-arbuz-bez-sahara",
+      "brand": "Monster",
+      "collection": "Ultra",
+      "name": "Monster Ultra Watermelon",
+      "flavor": "Арбуз, без сахара",
+      "flavorTag": "watermelon",
+      "category": "energy",
+      "volume": 0.449,
+      "price": 150,
+      "description": "Арбуз без сахара.",
+      "image": "/images/monster-ultra-watermelon-arbuz-bez-sahara.png",
+      "priceHistory": [
+        {
+          "price": 150,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "monster-ultra-fiesta-mango-mango-bez-sahara",
+      "brand": "Monster",
+      "collection": "Ultra",
+      "name": "Monster Ultra Fiesta Mango",
+      "flavor": "Манго, без сахара",
+      "flavorTag": "mango",
+      "category": "energy",
+      "volume": 0.449,
+      "price": 150,
+      "description": "Манго-фиеста.",
+      "image": "/images/monster-ultra-fiesta-mango-mango-bez-sahara.png",
+      "priceHistory": [
+        {
+          "price": 150,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "monster-ultra-peachy-keen-persik-bez-sahara",
+      "brand": "Monster",
+      "collection": "Ultra",
+      "name": "Monster Ultra Peachy Keen",
+      "flavor": "Персик, без сахара",
+      "flavorTag": "peach",
+      "category": "energy",
+      "volume": 0.449,
+      "price": 150,
+      "description": "Персиковый.",
+      "image": "/images/monster-ultra-peachy-keen-persik-bez-sahara.png",
+      "priceHistory": [
+        {
+          "price": 150,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "monster-mango-loco-mango",
+      "brand": "Monster",
+      "collection": "Juiced",
+      "name": "Monster Mango Loco",
+      "flavor": "Манго",
+      "flavorTag": "mango",
+      "category": "energy",
+      "volume": 0.449,
+      "price": 150,
+      "description": "Тропическое манго.",
+      "image": "/images/monster-mango-loco-mango.jpg",
+      "priceHistory": [
+        {
+          "price": 150,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "monster-pipeline-punch-marakuyya-apelsin",
+      "brand": "Monster",
+      "collection": "Juiced",
+      "name": "Monster Pipeline Punch",
+      "flavor": "Маракуйя-апельсин",
+      "flavorTag": "passion",
+      "category": "energy",
+      "volume": 0.449,
+      "price": 150,
+      "description": "Пунш из маракуйи и апельсина.",
+      "image": "/images/monster-pipeline-punch-marakuyya-apelsin.jpg",
+      "priceHistory": [
+        {
+          "price": 150,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "monster-khaos-multifrukt",
+      "brand": "Monster",
+      "collection": "Juiced",
+      "name": "Monster Khaos",
+      "flavor": "Мультифрукт",
+      "flavorTag": "multifruit",
+      "category": "energy",
+      "volume": 0.449,
+      "price": 150,
+      "description": "Полусок, микс фруктов.",
+      "image": "/images/monster-khaos-multifrukt.jpg",
+      "priceHistory": [
+        {
+          "price": 150,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "monster-pacific-punch-yagodnyy-punsh",
+      "brand": "Monster",
+      "collection": "Juiced",
+      "name": "Monster Pacific Punch",
+      "flavor": "Ягодный пунш",
+      "flavorTag": "multifruit",
+      "category": "energy",
+      "volume": 0.449,
+      "price": 150,
+      "description": "Ягодно-цитрусовый пунш.",
+      "image": "/images/monster-pacific-punch-yagodnyy-punsh.png",
+      "priceHistory": [
+        {
+          "price": 150,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "monster-monarch-persik-nektarin",
+      "brand": "Monster",
+      "collection": "Juiced",
+      "name": "Monster Monarch",
+      "flavor": "Персик-нектарин",
+      "flavorTag": "peach",
+      "category": "energy",
+      "volume": 0.449,
+      "price": 150,
+      "description": "Персик и нектарин.",
+      "image": "/images/monster-monarch-persik-nektarin.png",
+      "priceHistory": [
+        {
+          "price": 150,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "monster-aussie-lemonade-limonad",
+      "brand": "Monster",
+      "collection": "Juiced",
+      "name": "Monster Aussie Lemonade",
+      "flavor": "Лимонад",
+      "flavorTag": "lemonade",
+      "category": "energy",
+      "volume": 0.449,
+      "price": 150,
+      "description": "Австралийский лимонад.",
+      "image": "/images/monster-aussie-lemonade-limonad.jpg",
+      "priceHistory": [
+        {
+          "price": 150,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "monster-rehab-tea-lemonade-chay-limonad",
+      "brand": "Monster",
+      "collection": "Rehab",
+      "name": "Monster Rehab Tea + Lemonade",
+      "flavor": "Чай-лимонад",
+      "flavorTag": "tea",
+      "category": "energy",
+      "volume": 0.458,
+      "price": 160,
+      "description": "Негазированный чай с лимонадом.",
+      "image": "/images/monster-rehab-tea-lemonade-chay-limonad.jpg",
+      "priceHistory": [
+        {
+          "price": 160,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "monster-rehab-peach-tea-persikovyy-chay",
+      "brand": "Monster",
+      "collection": "Rehab",
+      "name": "Monster Rehab Peach Tea",
+      "flavor": "Персиковый чай",
+      "flavorTag": "tea",
+      "category": "energy",
+      "volume": 0.458,
+      "price": 160,
+      "description": "Персиковый холодный чай.",
+      "image": "/images/monster-rehab-peach-tea-persikovyy-chay.jpg",
+      "priceHistory": [
+        {
+          "price": 160,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "monster-rehab-wildberry-tea-yagodnyy-chay",
+      "brand": "Monster",
+      "collection": "Rehab",
+      "name": "Monster Rehab Wildberry Tea",
+      "flavor": "Ягодный чай",
+      "flavorTag": "tea",
+      "category": "energy",
+      "volume": 0.458,
+      "price": 160,
+      "description": "Ягодный холодный чай.",
+      "image": "/images/monster-rehab-wildberry-tea-yagodnyy-chay.png",
+      "priceHistory": [
+        {
+          "price": 160,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "monster-java-mean-bean-kofe",
+      "brand": "Monster",
+      "collection": "Java",
+      "name": "Monster Java Mean Bean",
+      "flavor": "Кофе",
+      "flavorTag": "coffee",
+      "category": "energy",
+      "volume": 0.443,
+      "price": 165,
+      "description": "Кофе с молоком и энергией.",
+      "image": "/images/monster-java-mean-bean-kofe.jpg",
+      "priceHistory": [
+        {
+          "price": 165,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "monster-java-loca-moca-kofe-mokko",
+      "brand": "Monster",
+      "collection": "Java",
+      "name": "Monster Java Loca Moca",
+      "flavor": "Кофе-мокко",
+      "flavorTag": "coffee",
+      "category": "energy",
+      "volume": 0.443,
+      "price": 165,
+      "description": "Мокко-кофе.",
+      "image": "/images/monster-java-loca-moca-kofe-mokko.jpg",
+      "priceHistory": [
+        {
+          "price": 165,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "monster-java-salted-caramel-solenaya-karamel",
+      "brand": "Monster",
+      "collection": "Java",
+      "name": "Monster Java Salted Caramel",
+      "flavor": "Солёная карамель",
+      "flavorTag": "caramel",
+      "category": "energy",
+      "volume": 0.443,
+      "price": 165,
+      "description": "Кофе с солёной карамелью.",
+      "image": "/images/monster-java-salted-caramel-solenaya-karamel.jpg",
+      "priceHistory": [
+        {
+          "price": 165,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "monster-reserve-white-pineapple-ananas",
+      "brand": "Monster",
+      "collection": "Reserve",
+      "name": "Monster Reserve White Pineapple",
+      "flavor": "Ананас",
+      "flavorTag": "pineapple",
+      "category": "energy",
+      "volume": 0.449,
+      "price": 160,
+      "description": "Белый ананас.",
+      "image": "/images/monster-reserve-white-pineapple-ananas.jpg",
+      "priceHistory": [
+        {
+          "price": 160,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "monster-reserve-watermelon-arbuz",
+      "brand": "Monster",
+      "collection": "Reserve",
+      "name": "Monster Reserve Watermelon",
+      "flavor": "Арбуз",
+      "flavorTag": "watermelon",
+      "category": "energy",
+      "volume": 0.449,
+      "price": 160,
+      "description": "Арбуз, лимитка.",
+      "image": "/images/monster-reserve-watermelon-arbuz.webp",
+      "priceHistory": [
+        {
+          "price": 160,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "monster-reserve-orange-dreamsicle-apelsin-krem",
+      "brand": "Monster",
+      "collection": "Reserve",
+      "name": "Monster Reserve Orange Dreamsicle",
+      "flavor": "Апельсин-крем",
+      "flavorTag": "orange",
+      "category": "energy",
+      "volume": 0.449,
+      "price": 160,
+      "description": "Апельсин со сливками.",
+      "image": "/images/monster-reserve-orange-dreamsicle-apelsin-krem.jpg",
+      "priceHistory": [
+        {
+          "price": 160,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "burn-original",
+      "brand": "Burn",
+      "collection": null,
+      "name": "Burn",
+      "flavor": "Оригинал",
+      "flavorTag": "original",
+      "category": "energy",
+      "volume": 0.449,
+      "price": 110,
+      "description": "Пряный классический Burn.",
+      "image": "/images/burn-original.jpg",
+      "priceHistory": [
+        {
+          "price": 110,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "burn-mango-mango",
+      "brand": "Burn",
+      "collection": null,
+      "name": "Burn Mango",
+      "flavor": "Манго",
+      "flavorTag": "mango",
+      "category": "energy",
+      "volume": 0.449,
+      "price": 110,
+      "description": "Манго.",
+      "image": null,
+      "priceHistory": [
+        {
+          "price": 110,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "burn-apple-kiwi-yabloko-kivi",
+      "brand": "Burn",
+      "collection": null,
+      "name": "Burn Apple-Kiwi",
+      "flavor": "Яблоко-киви",
+      "flavorTag": "apple",
+      "category": "energy",
+      "volume": 0.449,
+      "price": 110,
+      "description": "Яблоко и киви.",
+      "image": "/images/burn-apple-kiwi-yabloko-kivi.jpg",
+      "priceHistory": [
+        {
+          "price": 110,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "burn-zero-bez-sahara",
+      "brand": "Burn",
+      "collection": null,
+      "name": "Burn Zero",
+      "flavor": "Без сахара",
+      "flavorTag": "zero",
+      "category": "energy",
+      "volume": 0.449,
+      "price": 110,
+      "description": "Ноль сахара.",
+      "image": "/images/burn-zero-bez-sahara.webp",
+      "priceHistory": [
+        {
+          "price": 110,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "burn-dark-energy-temnye-yagody",
+      "brand": "Burn",
+      "collection": null,
+      "name": "Burn Dark Energy",
+      "flavor": "Тёмные ягоды",
+      "flavorTag": "berry",
+      "category": "energy",
+      "volume": 0.449,
+      "price": 110,
+      "description": "Тёмный ягодный профиль.",
+      "image": "/images/burn-dark-energy-temnye-yagody.webp",
+      "priceHistory": [
+        {
+          "price": 110,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "drive-me-original",
+      "brand": "Drive Me",
+      "collection": null,
+      "name": "Drive Me",
+      "flavor": "Оригинал",
+      "flavorTag": "original",
+      "category": "energy",
+      "volume": 0.449,
+      "price": 100,
+      "description": "Ровная классика.",
+      "image": "/images/drive-me-original.jpg",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "drive-me-mango-maracuja-mango-marakuyya",
+      "brand": "Drive Me",
+      "collection": null,
+      "name": "Drive Me Mango-Maracuja",
+      "flavor": "Манго-маракуйя",
+      "flavorTag": "mango",
+      "category": "energy",
+      "volume": 0.449,
+      "price": 100,
+      "description": "Манго и маракуйя.",
+      "image": null,
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "drive-me-zero-bez-sahara",
+      "brand": "Drive Me",
+      "collection": null,
+      "name": "Drive Me Zero",
+      "flavor": "Без сахара",
+      "flavorTag": "zero",
+      "category": "energy",
+      "volume": 0.449,
+      "price": 100,
+      "description": "Без сахара.",
+      "image": null,
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "jaguar-yoshta-blueberry-yoshta-chernika",
+      "brand": "Jaguar",
+      "collection": "Extra Urban Energy",
+      "name": "Jaguar Yoshta-Blueberry",
+      "flavor": "Йошта-черника",
+      "flavorTag": "blueberry",
+      "category": "energy",
+      "volume": null,
+      "price": 95,
+      "description": "",
+      "image": "/images/jaguar-yoshta-blueberry-yoshta-chernika.png",
+      "priceHistory": [
+        {
+          "price": 95,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "jaguar-pitaya-guava-pitahayya-guava",
+      "brand": "Jaguar",
+      "collection": "Extra Urban Energy",
+      "name": "Jaguar Pitaya-Guava",
+      "flavor": "Питахайя-гуава",
+      "flavorTag": "other",
+      "category": "energy",
+      "volume": null,
+      "price": 95,
+      "description": "",
+      "image": "/images/jaguar-pitaya-guava-pitahayya-guava.png",
+      "priceHistory": [
+        {
+          "price": 95,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "jaguar-kiwi-cactus-kivi-kaktus",
+      "brand": "Jaguar",
+      "collection": "Extra Urban Energy",
+      "name": "Jaguar Kiwi-Cactus",
+      "flavor": "Киви-кактус",
+      "flavorTag": "cactus",
+      "category": "energy",
+      "volume": null,
+      "price": 95,
+      "description": "",
+      "image": "/images/jaguar-kiwi-cactus-kivi-kaktus.png",
+      "priceHistory": [
+        {
+          "price": 95,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "jaguar-original-originalnyy",
+      "brand": "Jaguar",
+      "collection": "Extra Urban Energy",
+      "name": "Jaguar Original",
+      "flavor": "Оригинальный",
+      "flavorTag": "original",
+      "category": "energy",
+      "volume": null,
+      "price": 95,
+      "description": "",
+      "image": "/images/jaguar-original-originalnyy.png",
+      "priceHistory": [
+        {
+          "price": 95,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "jaguar-berry-mix-yagodnyy-miks",
+      "brand": "Jaguar",
+      "collection": "Extra Urban Energy",
+      "name": "Jaguar Berry Mix",
+      "flavor": "Ягодный микс",
+      "flavorTag": "multifruit",
+      "category": "energy",
+      "volume": null,
+      "price": 95,
+      "description": "",
+      "image": "/images/jaguar-berry-mix-yagodnyy-miks.png",
+      "priceHistory": [
+        {
+          "price": 95,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "jaguar-shikuwasa-coconut-shikuvasa-kokos",
+      "brand": "Jaguar",
+      "collection": "Extra Urban Energy",
+      "name": "Jaguar Shikuwasa-Coconut",
+      "flavor": "Шикуваса-кокос",
+      "flavorTag": "other",
+      "category": "energy",
+      "volume": null,
+      "price": 95,
+      "description": "",
+      "image": "/images/jaguar-shikuwasa-coconut-shikuvasa-kokos.png",
+      "priceHistory": [
+        {
+          "price": 95,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "jaguar-plum-green-tea-sliva-zelenyy-chay",
+      "brand": "Jaguar",
+      "collection": "Extra Urban Energy",
+      "name": "Jaguar Plum-Green Tea",
+      "flavor": "Слива–зелёный чай",
+      "flavorTag": "tea",
+      "category": "energy",
+      "volume": null,
+      "price": 95,
+      "description": "",
+      "image": "/images/jaguar-plum-green-tea-sliva-zelenyy-chay.png",
+      "priceHistory": [
+        {
+          "price": 95,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "jaguar-raspberry-strawberry-zero-malina-zemlyanika-zero-bez-sahara",
+      "brand": "Jaguar",
+      "collection": "Extra Urban Energy",
+      "name": "Jaguar Raspberry-Strawberry Zero",
+      "flavor": "Малина-земляника (Зеро, без сахара)",
+      "flavorTag": "strawberry",
+      "category": "energy",
+      "volume": null,
+      "price": 95,
+      "description": "",
+      "image": "/images/jaguar-raspberry-strawberry-zero-malina-zemlyanika-zero-bez-sahara.png",
+      "priceHistory": [
+        {
+          "price": 95,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "e-on-black-power-fruktovo-karamelnyy-original",
+      "brand": "E-ON",
+      "collection": null,
+      "name": "E-ON Black Power",
+      "flavor": "Фруктово-карамельный (оригинал)",
+      "flavorTag": "caramel",
+      "category": "energy",
+      "volume": null,
+      "price": 95,
+      "description": "",
+      "image": "/images/e-on-black-power-fruktovo-karamelnyy-original.png",
+      "priceHistory": [
+        {
+          "price": 95,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "e-on-almond-rush-abrikos-i-mindal",
+      "brand": "E-ON",
+      "collection": null,
+      "name": "E-ON Almond Rush",
+      "flavor": "Абрикос и миндаль",
+      "flavorTag": "other",
+      "category": "energy",
+      "volume": null,
+      "price": 95,
+      "description": "",
+      "image": "/images/e-on-almond-rush-abrikos-i-mindal.png",
+      "priceHistory": [
+        {
+          "price": 95,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "e-on-kiwi-blast-kivi-tropicheskiy",
+      "brand": "E-ON",
+      "collection": null,
+      "name": "E-ON Kiwi Blast",
+      "flavor": "Киви (тропический)",
+      "flavorTag": "kiwi",
+      "category": "energy",
+      "volume": null,
+      "price": 95,
+      "description": "",
+      "image": "/images/e-on-kiwi-blast-kivi-tropicheskiy.png",
+      "priceHistory": [
+        {
+          "price": 95,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "e-on-guava-passion-guava-i-marakuyya",
+      "brand": "E-ON",
+      "collection": null,
+      "name": "E-ON Guava Passion",
+      "flavor": "Гуава и маракуйя",
+      "flavorTag": "passion",
+      "category": "energy",
+      "volume": null,
+      "price": 95,
+      "description": "",
+      "image": "/images/e-on-guava-passion-guava-i-marakuyya.png",
+      "priceHistory": [
+        {
+          "price": 95,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "e-on-danger-berry-greypfrut-i-malina",
+      "brand": "E-ON",
+      "collection": null,
+      "name": "E-ON Danger Berry",
+      "flavor": "Грейпфрут и малина",
+      "flavorTag": "citrus",
+      "category": "energy",
+      "volume": null,
+      "price": 95,
+      "description": "",
+      "image": "/images/e-on-danger-berry-greypfrut-i-malina.png",
+      "priceHistory": [
+        {
+          "price": 95,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "e-on-lemongrass-lemongrass",
+      "brand": "E-ON",
+      "collection": null,
+      "name": "E-ON Lemongrass",
+      "flavor": "Лемонграсс",
+      "flavorTag": "other",
+      "category": "energy",
+      "volume": null,
+      "price": 95,
+      "description": "",
+      "image": "/images/e-on-lemongrass-lemongrass.png",
+      "priceHistory": [
+        {
+          "price": 95,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "flash-up-energy-original-originalnyy",
+      "brand": "Flash Up",
+      "collection": null,
+      "name": "Flash Up Energy Original",
+      "flavor": "Оригинальный",
+      "flavorTag": "original",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/flash-up-energy-original-originalnyy.png",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "flash-up-energy-berry-mix-yagodnyy-miks",
+      "brand": "Flash Up",
+      "collection": null,
+      "name": "Flash Up Energy Berry Mix",
+      "flavor": "Ягодный микс",
+      "flavorTag": "multifruit",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/flash-up-energy-berry-mix-yagodnyy-miks.png",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "flash-up-ultra-energy-originalnyy-usilennyy",
+      "brand": "Flash Up",
+      "collection": "Ultra",
+      "name": "Flash Up Ultra Energy",
+      "flavor": "Оригинальный усиленный",
+      "flavorTag": "zero",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/flash-up-ultra-energy-originalnyy-usilennyy.png",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "flash-up-max-original-originalnyy-max",
+      "brand": "Flash Up",
+      "collection": "Max",
+      "name": "Flash Up Max Original",
+      "flavor": "Оригинальный (Max)",
+      "flavorTag": "original",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/flash-up-max-original-originalnyy-max.png",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "flash-up-energy-orange-rhythm-apelsinovyy-ritm",
+      "brand": "Flash Up",
+      "collection": null,
+      "name": "Flash Up Energy Orange Rhythm",
+      "flavor": "Апельсиновый ритм",
+      "flavorTag": "orange",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/flash-up-energy-orange-rhythm-apelsinovyy-ritm.png",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "flash-up-energy-mint-lime-myatnyy-laym",
+      "brand": "Flash Up",
+      "collection": null,
+      "name": "Flash Up Energy Mint Lime",
+      "flavor": "Мятный лайм",
+      "flavorTag": "mojito",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/flash-up-energy-mint-lime-myatnyy-laym.png",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "flash-up-energy-mango-pineapple-mango-ananas",
+      "brand": "Flash Up",
+      "collection": null,
+      "name": "Flash Up Energy Mango Pineapple",
+      "flavor": "Манго-ананас",
+      "flavorTag": "mango",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/flash-up-energy-mango-pineapple-mango-ananas.png",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "flash-up-energy-bubble-gum-babl-gam",
+      "brand": "Flash Up",
+      "collection": null,
+      "name": "Flash Up Energy Bubble Gum",
+      "flavor": "Бабл-гам",
+      "flavorTag": "original",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/flash-up-energy-bubble-gum-babl-gam.png",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "flash-up-energy-kiwi-carambola-kivi-karambola",
+      "brand": "Flash Up",
+      "collection": null,
+      "name": "Flash Up Energy Kiwi Carambola",
+      "flavor": "Киви-карамбола",
+      "flavorTag": "kiwi",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/flash-up-energy-kiwi-carambola-kivi-karambola.png",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "flash-up-energy-marshmallow-marshmellou",
+      "brand": "Flash Up",
+      "collection": null,
+      "name": "Flash Up Energy Marshmallow",
+      "flavor": "Маршмеллоу",
+      "flavorTag": "original",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/flash-up-energy-marshmallow-marshmellou.png",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "flash-up-energy-banana-feijoa-banan-feyhoa",
+      "brand": "Flash Up",
+      "collection": null,
+      "name": "Flash Up Energy Banana Feijoa",
+      "flavor": "Банан-фейхоа",
+      "flavorTag": "original",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/flash-up-energy-banana-feijoa-banan-feyhoa.png",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "flash-up-energy-blueberry-donut-chernichnyy-ponchik",
+      "brand": "Flash Up",
+      "collection": null,
+      "name": "Flash Up Energy Blueberry Donut",
+      "flavor": "Черничный пончик",
+      "flavorTag": "blueberry",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/flash-up-energy-blueberry-donut-chernichnyy-ponchik.png",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "flash-up-energy-pomegranate-raspberry-granat-malina",
+      "brand": "Flash Up",
+      "collection": null,
+      "name": "Flash Up Energy Pomegranate Raspberry",
+      "flavor": "Гранат-малина",
+      "flavorTag": "berry",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/flash-up-energy-pomegranate-raspberry-granat-malina.png",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "flash-up-zero-mode-peach-bilberry-persik-chernika-bez-sahara",
+      "brand": "Flash Up",
+      "collection": "Zero Mode",
+      "name": "Flash Up Zero Mode Peach Bilberry",
+      "flavor": "Персик-черника (без сахара)",
+      "flavorTag": "peach",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/flash-up-zero-mode-peach-bilberry-persik-chernika-bez-sahara.png",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "flash-up-energy-game-mode-xp-igrovoy-game-mode-xp",
+      "brand": "Flash Up",
+      "collection": "Game Mode",
+      "name": "Flash Up Energy Game Mode XP",
+      "flavor": "Игровой (Game Mode XP)",
+      "flavorTag": "original",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/flash-up-energy-game-mode-xp-igrovoy-game-mode-xp.png",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "flash-up-energy-game-mode-mp-igrovoy-game-mode-mp",
+      "brand": "Flash Up",
+      "collection": "Game Mode",
+      "name": "Flash Up Energy Game Mode MP",
+      "flavor": "Игровой (Game Mode MP)",
+      "flavorTag": "original",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/flash-up-energy-game-mode-mp-igrovoy-game-mode-mp.png",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "tornado-energy-storm-klassicheskiy-energetik",
+      "brand": "Tornado",
+      "collection": "Tornado Max Energy",
+      "name": "Tornado Energy Storm",
+      "flavor": "Классический энергетик",
+      "flavorTag": "original",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/tornado-energy-storm-klassicheskiy-energetik.webp",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "tornado-energy-mango-mango",
+      "brand": "Tornado",
+      "collection": "Tornado Max Energy",
+      "name": "Tornado Energy Mango",
+      "flavor": "Манго",
+      "flavorTag": "mango",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/tornado-energy-mango-mango.webp",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "tornado-energy-boost-tropicheskiy-miks",
+      "brand": "Tornado",
+      "collection": "Tornado Max Energy",
+      "name": "Tornado Energy Boost",
+      "flavor": "Тропический микс",
+      "flavorTag": "tropical",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/tornado-energy-boost-tropicheskiy-miks.webp",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "tornado-energy-coconut-kokos",
+      "brand": "Tornado",
+      "collection": "Tornado Max Energy",
+      "name": "Tornado Energy Coconut",
+      "flavor": "Кокос",
+      "flavorTag": "original",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/tornado-energy-coconut-kokos.webp",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "tornado-energy-bubble-babl-gam",
+      "brand": "Tornado",
+      "collection": "Tornado Max Energy",
+      "name": "Tornado Energy Bubble",
+      "flavor": "Бабл-гам",
+      "flavorTag": "original",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/tornado-energy-bubble-babl-gam.webp",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "tornado-energy-green-apple-zelenoe-yabloko",
+      "brand": "Tornado",
+      "collection": "Tornado Max Energy",
+      "name": "Tornado Energy Green Apple",
+      "flavor": "Зелёное яблоко",
+      "flavorTag": "apple",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/tornado-energy-green-apple-zelenoe-yabloko.webp",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "tornado-energy-razzberry-malina",
+      "brand": "Tornado",
+      "collection": "Tornado Max Energy",
+      "name": "Tornado Energy Razzberry",
+      "flavor": "Малина",
+      "flavorTag": "berry",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/tornado-energy-razzberry-malina.webp",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "tornado-energy-black-tropicheskie-frukty",
+      "brand": "Tornado",
+      "collection": "Tornado Max Energy",
+      "name": "Tornado Energy Black",
+      "flavor": "Тропические фрукты",
+      "flavorTag": "tropical",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/tornado-energy-black-tropicheskie-frukty.webp",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "tornado-energy-ice-berry-ledyanaya-yagoda",
+      "brand": "Tornado",
+      "collection": "Tornado Max Energy",
+      "name": "Tornado Energy Ice Berry",
+      "flavor": "Ледяная ягода",
+      "flavorTag": "berry",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/tornado-energy-ice-berry-ledyanaya-yagoda.webp",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "tornado-energy-russian-malina",
+      "brand": "Tornado",
+      "collection": "Tornado Max Energy",
+      "name": "Tornado Energy Russian",
+      "flavor": "Малина",
+      "flavorTag": "original",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/tornado-energy-russian-malina.webp",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "tornado-energy-asian-mix-aziatskiy-miks",
+      "brand": "Tornado",
+      "collection": "Tornado Max Energy",
+      "name": "Tornado Energy Asian Mix",
+      "flavor": "Азиатский микс",
+      "flavorTag": "multifruit",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/tornado-energy-asian-mix-aziatskiy-miks.png",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "tornado-energy-berry-cream-yagodnyy-krem",
+      "brand": "Tornado",
+      "collection": "Tornado Max Energy",
+      "name": "Tornado Energy Berry Cream",
+      "flavor": "Ягодный крем",
+      "flavorTag": "berry",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/tornado-energy-berry-cream-yagodnyy-krem.webp",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "tornado-energy-sour-marm-kislyy-marmelad",
+      "brand": "Tornado",
+      "collection": "Tornado Max Energy",
+      "name": "Tornado Energy Sour Marm",
+      "flavor": "Кислый мармелад",
+      "flavorTag": "original",
+      "category": "energy",
+      "volume": null,
+      "price": 100,
+      "description": "",
+      "image": "/images/tornado-energy-sour-marm-kislyy-marmelad.webp",
+      "priceHistory": [
+        {
+          "price": 100,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "adrenaline-rush-original-originalnyy-tsitrus-apelsin",
+      "brand": "Adrenaline Rush",
+      "collection": "Original",
+      "name": "Adrenaline Rush Original",
+      "flavor": "Оригинальный (цитрус/апельсин)",
+      "flavorTag": "orange",
+      "category": "energy",
+      "volume": null,
+      "price": 120,
+      "description": "",
+      "image": "/images/adrenaline-rush-original-originalnyy-tsitrus-apelsin.jpg",
+      "priceHistory": [
+        {
+          "price": 120,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "adrenaline-rush-extra-ekstra-usilennyy-guarana",
+      "brand": "Adrenaline Rush",
+      "collection": null,
+      "name": "Adrenaline Rush Extra",
+      "flavor": "Экстра (усиленный, гуарана)",
+      "flavorTag": "other",
+      "category": "energy",
+      "volume": null,
+      "price": 120,
+      "description": "",
+      "image": "/images/adrenaline-rush-extra-ekstra-usilennyy-guarana.jpg",
+      "priceHistory": [
+        {
+          "price": 120,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "adrenaline-rush-game-fuel-igrovoy-kislo-sladkiy",
+      "brand": "Adrenaline Rush",
+      "collection": "Game Fuel",
+      "name": "Adrenaline Rush Game Fuel",
+      "flavor": "Игровой (кисло-сладкий)",
+      "flavorTag": "other",
+      "category": "energy",
+      "volume": null,
+      "price": 120,
+      "description": "",
+      "image": "/images/adrenaline-rush-game-fuel-igrovoy-kislo-sladkiy.png",
+      "priceHistory": [
+        {
+          "price": 120,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "adrenaline-rush-juicy-orange-apelsinovaya-energiya",
+      "brand": "Adrenaline Rush",
+      "collection": "Juicy",
+      "name": "Adrenaline Rush Juicy Orange",
+      "flavor": "Апельсиновая энергия",
+      "flavorTag": "orange",
+      "category": "energy",
+      "volume": null,
+      "price": 120,
+      "description": "",
+      "image": "/images/adrenaline-rush-juicy-orange-apelsinovaya-energiya.jpg",
+      "priceHistory": [
+        {
+          "price": 120,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "adrenaline-rush-juicy-berry-yagodnaya-energiya",
+      "brand": "Adrenaline Rush",
+      "collection": "Juicy",
+      "name": "Adrenaline Rush Juicy Berry",
+      "flavor": "Ягодная энергия",
+      "flavorTag": "berry",
+      "category": "energy",
+      "volume": null,
+      "price": 120,
+      "description": "",
+      "image": "/images/adrenaline-rush-juicy-berry-yagodnaya-energiya.jpg",
+      "priceHistory": [
+        {
+          "price": 120,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "adrenaline-rush-juicy-mango-mango",
+      "brand": "Adrenaline Rush",
+      "collection": "Juicy",
+      "name": "Adrenaline Rush Juicy Mango",
+      "flavor": "Манго",
+      "flavorTag": "mango",
+      "category": "energy",
+      "volume": null,
+      "price": 120,
+      "description": "",
+      "image": "/images/adrenaline-rush-juicy-mango-mango.jpg",
+      "priceHistory": [
+        {
+          "price": 120,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "adrenaline-rush-juicy-lychee-lichi",
+      "brand": "Adrenaline Rush",
+      "collection": "Juicy",
+      "name": "Adrenaline Rush Juicy Lychee",
+      "flavor": "Личи",
+      "flavorTag": "lychee",
+      "category": "energy",
+      "volume": null,
+      "price": 120,
+      "description": "",
+      "image": "/images/adrenaline-rush-juicy-lychee-lichi.jpg",
+      "priceHistory": [
+        {
+          "price": 120,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "adrenaline-rush-guanabana-lime-guanabana-laym",
+      "brand": "Adrenaline Rush",
+      "collection": "Juicy",
+      "name": "Adrenaline Rush Guanabana Lime",
+      "flavor": "Гуанабана лайм",
+      "flavorTag": "citrus",
+      "category": "energy",
+      "volume": null,
+      "price": 120,
+      "description": "",
+      "image": "/images/adrenaline-rush-guanabana-lime-guanabana-laym.png",
+      "priceHistory": [
+        {
+          "price": 120,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "adrenaline-rush-spicy-energy-ostryy-tabasko-granat-klyukva",
+      "brand": "Adrenaline Rush",
+      "collection": "Limited",
+      "name": "Adrenaline Rush Spicy Energy",
+      "flavor": "Острый (табаско, гранат, клюква)",
+      "flavorTag": "cranberry",
+      "category": "energy",
+      "volume": null,
+      "price": 120,
+      "description": "",
+      "image": "/images/adrenaline-rush-spicy-energy-ostryy-tabasko-granat-klyukva.jpg",
+      "priceHistory": [
+        {
+          "price": 120,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "adrenaline-rush-pomelo-pineapple-pomelo-ananas",
+      "brand": "Adrenaline Rush",
+      "collection": "Limited",
+      "name": "Adrenaline Rush Pomelo Pineapple",
+      "flavor": "Помело ананас",
+      "flavorTag": "pineapple",
+      "category": "energy",
+      "volume": null,
+      "price": 120,
+      "description": "",
+      "image": "/images/adrenaline-rush-pomelo-pineapple-pomelo-ananas.jpg",
+      "priceHistory": [
+        {
+          "price": 120,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "adrenaline-rush-melon-lime-mint-dynya-laym-myata",
+      "brand": "Adrenaline Rush",
+      "collection": "Limited",
+      "name": "Adrenaline Rush Melon Lime Mint",
+      "flavor": "Дыня лайм мята",
+      "flavorTag": "mojito",
+      "category": "energy",
+      "volume": null,
+      "price": 120,
+      "description": "",
+      "image": "/images/adrenaline-rush-melon-lime-mint-dynya-laym-myata.jpg",
+      "priceHistory": [
+        {
+          "price": 120,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "adrenaline-rush-yuzu-strawberry-calamansi-yudzu-klubnika-kalamansi",
+      "brand": "Adrenaline Rush",
+      "collection": "Limited",
+      "name": "Adrenaline Rush Yuzu Strawberry Calamansi",
+      "flavor": "Юдзу клубника каламанси",
+      "flavorTag": "strawberry",
+      "category": "energy",
+      "volume": null,
+      "price": 120,
+      "description": "",
+      "image": "/images/adrenaline-rush-yuzu-strawberry-calamansi-yudzu-klubnika-kalamansi.jpg",
+      "priceHistory": [
+        {
+          "price": 120,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "adrenaline-rush-breeze-ice-effect-energiya-briza-blyu-raspberri-laym-myata",
+      "brand": "Adrenaline Rush",
+      "collection": "Limited",
+      "name": "Adrenaline Rush Breeze / Ice Effect",
+      "flavor": "Энергия бриза (блю распберри, лайм, мята)",
+      "flavorTag": "mojito",
+      "category": "energy",
+      "volume": null,
+      "price": 120,
+      "description": "",
+      "image": "/images/adrenaline-rush-breeze-ice-effect-energiya-briza-blyu-raspberri-laym-myata.jpg",
+      "priceHistory": [
+        {
+          "price": 120,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "adrenaline-rush-sparkling-energy-igristaya-energiya",
+      "brand": "Adrenaline Rush",
+      "collection": "Limited",
+      "name": "Adrenaline Rush Sparkling Energy",
+      "flavor": "Игристая энергия",
+      "flavorTag": "original",
+      "category": "energy",
+      "volume": null,
+      "price": 120,
+      "description": "",
+      "image": "/images/adrenaline-rush-sparkling-energy-igristaya-energiya.jpg",
+      "priceHistory": [
+        {
+          "price": 120,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "adrenaline-rush-silver-energy-zero-bez-sahara",
+      "brand": "Adrenaline Rush",
+      "collection": "Zero",
+      "name": "Adrenaline Rush Silver Energy (Zero)",
+      "flavor": "Без сахара",
+      "flavorTag": "zero",
+      "category": "energy",
+      "volume": null,
+      "price": 120,
+      "description": "",
+      "image": null,
+      "priceHistory": [
+        {
+          "price": 120,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "gorilla-mango-coconut-mango-kokos",
+      "brand": "Gorilla",
+      "collection": "Gorilla Energy (16oz)",
+      "name": "Gorilla Mango Coconut",
+      "flavor": "Манго-кокос",
+      "flavorTag": "mango",
+      "category": "energy",
+      "volume": null,
+      "price": 90,
+      "description": "",
+      "image": "/images/gorilla-mango-coconut-mango-kokos.png",
+      "priceHistory": [
+        {
+          "price": 90,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "gorilla-cherry-berry-vishnya-yagoda",
+      "brand": "Gorilla",
+      "collection": "Gorilla Energy (16oz)",
+      "name": "Gorilla Cherry Berry",
+      "flavor": "Вишня-ягода",
+      "flavorTag": "cherry",
+      "category": "energy",
+      "volume": null,
+      "price": 90,
+      "description": "",
+      "image": "/images/gorilla-cherry-berry-vishnya-yagoda.png",
+      "priceHistory": [
+        {
+          "price": 90,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "gorilla-kiwi-strawberry-kivi-klubnika",
+      "brand": "Gorilla",
+      "collection": "Gorilla Energy (16oz)",
+      "name": "Gorilla Kiwi Strawberry",
+      "flavor": "Киви-клубника",
+      "flavorTag": "strawberry",
+      "category": "energy",
+      "volume": null,
+      "price": 90,
+      "description": "",
+      "image": "/images/gorilla-kiwi-strawberry-kivi-klubnika.png",
+      "priceHistory": [
+        {
+          "price": 90,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "gorilla-watermelon-melon-arbuz-dynya",
+      "brand": "Gorilla",
+      "collection": "Gorilla Energy (16oz)",
+      "name": "Gorilla Watermelon Melon",
+      "flavor": "Арбуз-дыня",
+      "flavorTag": "watermelon",
+      "category": "energy",
+      "volume": null,
+      "price": 90,
+      "description": "",
+      "image": "/images/gorilla-watermelon-melon-arbuz-dynya.png",
+      "priceHistory": [
+        {
+          "price": 90,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "gorilla-ultimate-energy-zero-sugar-ultimate-bez-sahara",
+      "brand": "Gorilla",
+      "collection": "Gorilla Energy (16oz)",
+      "name": "Gorilla Ultimate Energy (Zero Sugar)",
+      "flavor": "Ultimate (без сахара)",
+      "flavorTag": "zero",
+      "category": "energy",
+      "volume": null,
+      "price": 90,
+      "description": "",
+      "image": "/images/gorilla-ultimate-energy-zero-sugar-ultimate-bez-sahara.png",
+      "priceHistory": [
+        {
+          "price": 90,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "gorilla-energy-original-450ml-original-klassika",
+      "brand": "Gorilla",
+      "collection": "Classic RU (Moscow Brewing Company)",
+      "name": "Gorilla Energy Original (450ml)",
+      "flavor": "Оригинал (классика)",
+      "flavorTag": "original",
+      "category": "energy",
+      "volume": null,
+      "price": 90,
+      "description": "",
+      "image": "/images/gorilla-energy-original-450ml-original-klassika.jpg",
+      "priceHistory": [
+        {
+          "price": 90,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "volt-original-originalnyy",
+      "brand": "Volt",
+      "collection": null,
+      "name": "Volt Original",
+      "flavor": "Оригинальный",
+      "flavorTag": "original",
+      "category": "energy",
+      "volume": null,
+      "price": 90,
+      "description": "",
+      "image": "/images/volt-original-originalnyy.png",
+      "priceHistory": [
+        {
+          "price": 90,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "volt-mango-lime-mango-laym",
+      "brand": "Volt",
+      "collection": null,
+      "name": "Volt Mango Lime",
+      "flavor": "Манго-лайм",
+      "flavorTag": "mango",
+      "category": "energy",
+      "volume": null,
+      "price": 90,
+      "description": "",
+      "image": "/images/volt-mango-lime-mango-laym.png",
+      "priceHistory": [
+        {
+          "price": 90,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "volt-blueberry-pomegranate-golubika-granat",
+      "brand": "Volt",
+      "collection": null,
+      "name": "Volt Blueberry Pomegranate",
+      "flavor": "Голубика-гранат",
+      "flavorTag": "blueberry",
+      "category": "energy",
+      "volume": null,
+      "price": 90,
+      "description": "",
+      "image": "/images/volt-blueberry-pomegranate-golubika-granat.png",
+      "priceHistory": [
+        {
+          "price": 90,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "volt-orange-passion-fruit-apelsin-marakuyya",
+      "brand": "Volt",
+      "collection": null,
+      "name": "Volt Orange Passion Fruit",
+      "flavor": "Апельсин-маракуйя",
+      "flavorTag": "passion",
+      "category": "energy",
+      "volume": null,
+      "price": 90,
+      "description": "",
+      "image": "/images/volt-orange-passion-fruit-apelsin-marakuyya.png",
+      "priceHistory": [
+        {
+          "price": 90,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "volt-sugar-free-bez-sahara",
+      "brand": "Volt",
+      "collection": null,
+      "name": "Volt Sugar Free",
+      "flavor": "Без сахара",
+      "flavorTag": "zero",
+      "category": "energy",
+      "volume": null,
+      "price": 90,
+      "description": "",
+      "image": "/images/volt-sugar-free-bez-sahara.png",
+      "priceHistory": [
+        {
+          "price": 90,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "volt-coconut-mango-kokos-mango",
+      "brand": "Volt",
+      "collection": null,
+      "name": "Volt Coconut Mango",
+      "flavor": "Кокос-манго",
+      "flavorTag": "mango",
+      "category": "energy",
+      "volume": null,
+      "price": 90,
+      "description": "",
+      "image": "/images/volt-coconut-mango-kokos-mango.png",
+      "priceHistory": [
+        {
+          "price": 90,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "volt-cherry-cola-vishnya-kola",
+      "brand": "Volt",
+      "collection": null,
+      "name": "Volt Cherry Cola",
+      "flavor": "Вишня-кола",
+      "flavorTag": "cherry",
+      "category": "energy",
+      "volume": null,
+      "price": 90,
+      "description": "",
+      "image": "/images/volt-cherry-cola-vishnya-kola.png",
+      "priceHistory": [
+        {
+          "price": 90,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "volt-grape-guava-vinograd-guava",
+      "brand": "Volt",
+      "collection": null,
+      "name": "Volt Grape Guava",
+      "flavor": "Виноград-гуава",
+      "flavorTag": "grape",
+      "category": "energy",
+      "volume": null,
+      "price": 90,
+      "description": "",
+      "image": "/images/volt-grape-guava-vinograd-guava.png",
+      "priceHistory": [
+        {
+          "price": 90,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "volt-grapefruit-strawberry-greypfrut-klubnika",
+      "brand": "Volt",
+      "collection": null,
+      "name": "Volt Grapefruit Strawberry",
+      "flavor": "Грейпфрут-клубника",
+      "flavorTag": "strawberry",
+      "category": "energy",
+      "volume": null,
+      "price": 90,
+      "description": "",
+      "image": "/images/volt-grapefruit-strawberry-greypfrut-klubnika.png",
+      "priceHistory": [
+        {
+          "price": 90,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    },
+    {
+      "id": "volt-kiwi-feijoa-kivi-feyhoa",
+      "brand": "Volt",
+      "collection": null,
+      "name": "Volt Kiwi Feijoa",
+      "flavor": "Киви-фейхоа",
+      "flavorTag": "kiwi",
+      "category": "energy",
+      "volume": null,
+      "price": 90,
+      "description": "",
+      "image": "/images/volt-kiwi-feijoa-kivi-feyhoa.png",
+      "priceHistory": [
+        {
+          "price": 90,
+          "ts": "2026-07-14T20:33:58.918Z",
+          "user": "seed"
+        }
+      ]
+    }
+  ],
+  "brandColors": {
+    "Red Bull": "#cc0a2f",
+    "Monster": "#7ac431",
+    "Adrenaline Rush": "#e2231a",
+    "Flash Up": "#f5a623",
+    "Gorilla": "#ffcb05",
+    "Burn": "#e4002b",
+    "Drive Me": "#00a0df",
+    "Tornado": "#8e24aa",
+    "E-ON": "#8bc34a",
+    "Jaguar": "#ff6f00",
+    "Volt": "#fdd835"
+  }
+}
