@@ -1,15 +1,16 @@
 :root {
-  --bg: #0b0d12;
-  --bg-2: #121620;
-  --card: #161b26;
-  --card-2: #1c2230;
-  --line: #262e3d;
-  --text: #eef2f8;
-  --muted: #8b95a7;
-  --accent: #ffcc33;
-  --accent-2: #ff5c8a;
-  --good: #4ade80;
-  --bad: #f87171;
+  /* Monster-style: pure black + toxic green */
+  --bg: #050605;
+  --bg-2: #0d100c;
+  --card: #111410;
+  --card-2: #171b14;
+  --line: #29331f;
+  --text: #f2f6ec;
+  --muted: #8b978a;
+  --accent: #a6ff00;
+  --accent-2: #63c400;
+  --good: #a6ff00;
+  --bad: #ff5252;
 
   --s: #ff4d4d;
   --a: #ff914d;
@@ -31,7 +32,10 @@ body {
 }
 
 body {
-  background: radial-gradient(1200px 600px at 80% -10%, #1a2030 0%, var(--bg) 55%);
+  background:
+    radial-gradient(1100px 560px at 82% -12%, #16260a 0%, rgba(5, 6, 5, 0) 55%),
+    radial-gradient(900px 500px at 0% 100%, #10200a 0%, var(--bg) 50%);
+  background-color: var(--bg);
   color: var(--text);
   font-family:
     -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -965,4 +969,97 @@ label.field span {
 }
 .agree-txt b {
   color: var(--text);
+}
+
+/* ================= MONSTER THEME OVERRIDES ================= */
+.logo {
+  text-transform: uppercase;
+  font-style: italic;
+  font-weight: 900;
+  letter-spacing: 1px;
+  filter: drop-shadow(0 0 10px rgba(166, 255, 0, 0.35));
+}
+
+.tab {
+  text-transform: uppercase;
+  font-style: italic;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  border-radius: 8px;
+  border-color: var(--line);
+}
+.tab.active {
+  background: linear-gradient(180deg, rgba(166, 255, 0, 0.08), transparent);
+  box-shadow: none;
+  border-color: transparent;
+  border-bottom: 3px solid var(--accent);
+  border-radius: 8px 8px 0 0;
+  color: var(--text);
+  text-shadow: 0 0 12px rgba(166, 255, 0, 0.4);
+}
+
+.gate-title,
+.modal-title,
+.stat-sec h3,
+.unrated-block h3 {
+  text-transform: uppercase;
+  font-style: italic;
+  letter-spacing: 0.6px;
+}
+
+.card {
+  border-radius: 10px;
+}
+.card .brand {
+  font-style: italic;
+  letter-spacing: 0.6px;
+}
+.card:active {
+  border-color: var(--accent);
+}
+
+.btn {
+  text-transform: uppercase;
+  font-style: italic;
+  font-weight: 900;
+  letter-spacing: 0.8px;
+  border-radius: 8px;
+  box-shadow: 0 0 18px rgba(166, 255, 0, 0.25);
+}
+.btn.ghost {
+  box-shadow: none;
+}
+
+.tier-label {
+  font-style: italic;
+  border-radius: 8px;
+}
+.tier-items,
+.tier-modes button,
+.stat-sec,
+.mini-card,
+.bignum,
+.price-row,
+.search,
+.form-input {
+  border-radius: 8px;
+}
+
+.filter-chip.on,
+.profile button.on,
+.tier-modes button.on,
+.scope-toggle button.on {
+  box-shadow: 0 0 12px rgba(166, 255, 0, 0.22);
+}
+
+/* accent text glows a touch (price, values) */
+.price,
+.axis-val,
+.card .coll {
+  text-shadow: 0 0 10px rgba(166, 255, 0, 0.25);
+}
+
+/* score badge on cards → green ring */
+.score-badge {
+  border-color: rgba(166, 255, 0, 0.4);
 }

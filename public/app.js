@@ -64,7 +64,7 @@ const FLAVOR_LABELS = {
   other: "Другое",
 };
 
-const USER_NAMES = { a: "Ты", b: "Друг" };
+const USER_NAMES = { a: "Миша", b: "Тимур" };
 const other = (u) => (u === "a" ? "b" : "a");
 
 const state = {
