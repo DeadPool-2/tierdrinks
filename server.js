@@ -75,10 +75,23 @@ async function saveDb() {
   await atomicWrite(DB_PATH, JSON.stringify(db, null, 2));
 }
 
+// imageMap.json (id → '/images/x.jpg') is produced by scripts/fetch-images.mjs
+// and committed; the binaries live in data/images (gitignored, rsynced to VPS).
+async function loadImageMap() {
+  try {
+    return JSON.parse(
+      await fs.readFile(path.join(__dirname, "src", "imageMap.json"), "utf8")
+    );
+  } catch {
+    return {};
+  }
+}
+
 // Load db.json if present, then merge in any new seed drinks (by natural key)
 // so extending the catalog later just appends — ratings are never touched.
 async function loadDb() {
   await fs.mkdir(IMAGES_DIR, { recursive: true });
+  const imageMap = await loadImageMap();
   try {
     db = JSON.parse(await fs.readFile(DB_PATH, "utf8"));
     if (!Array.isArray(db.drinks)) db.drinks = [];
@@ -91,13 +104,22 @@ async function loadDb() {
   let added = 0;
   for (const seed of SEED_DRINKS) {
     if (existing.has(drinkKey(seed))) continue;
-    db.drinks.push({ id: drinkId(seed), ...seed });
+    const id = drinkId(seed);
+    db.drinks.push({ id, ...seed, image: imageMap[id] ?? seed.image });
     existing.add(drinkKey(seed));
     added++;
   }
-  if (added || !db.drinks.length) await saveDb();
+  // backfill images for drinks seeded before their photo was fetched
+  let patched = 0;
+  for (const d of db.drinks) {
+    if (!d.image && imageMap[d.id]) {
+      d.image = imageMap[d.id];
+      patched++;
+    }
+  }
+  if (added || patched || !db.drinks.length) await saveDb();
   console.log(
-    `[db] ${db.drinks.length} drinks, ${db.ratings.length} ratings (+${added} seeded)`
+    `[db] ${db.drinks.length} drinks, ${db.ratings.length} ratings (+${added} seeded, ${patched} images)`
   );
 }
 
