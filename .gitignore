@@ -1,0 +1,9 @@
+# runtime data (lives on VPS, not in git)
+data/db.json
+data/images/*
+!data/images/.gitkeep
+
+# os / editor
+.DS_Store
+node_modules/
+*.log

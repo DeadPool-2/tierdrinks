@@ -1,0 +1,14 @@
+{
+  "name": "tierdrinks",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Рейтинг энергетиков и напитков на двоих — авто тир-лист",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
