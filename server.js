@@ -94,11 +94,32 @@ async function loadImageMap() {
   }
 }
 
+// seedExtra.json — extra lineup entries added by scripts/apply-lineup.mjs
+// (research-sourced flavors). Same shape as seedData entries.
+async function loadSeedExtra() {
+  try {
+    const arr = JSON.parse(
+      await fs.readFile(path.join(__dirname, "src", "seedExtra.json"), "utf8")
+    );
+    return Array.isArray(arr) ? arr : [];
+  } catch {
+    return [];
+  }
+}
+
 // Load db.json if present, then merge in any new seed drinks (by natural key)
 // so extending the catalog later just appends — ratings are never touched.
 async function loadDb() {
   await fs.mkdir(IMAGES_DIR, { recursive: true });
   const imageMap = await loadImageMap();
+  const extra = await loadSeedExtra();
+  // a brand with a researched full lineup in seedExtra supersedes its sparse
+  // hand-seeded entries (drops the old amateur-photo/placeholder variants)
+  const extraBrands = new Set(extra.map((d) => d.brand));
+  const seedList = [
+    ...SEED_DRINKS.filter((d) => !extraBrands.has(d.brand)),
+    ...extra,
+  ];
   try {
     db = JSON.parse(await fs.readFile(DB_PATH, "utf8"));
     if (!Array.isArray(db.drinks)) db.drinks = [];
@@ -114,7 +135,7 @@ async function loadDb() {
 
   const existing = new Set(db.drinks.map(drinkKey));
   let added = 0;
-  for (const seed of SEED_DRINKS) {
+  for (const seed of seedList) {
     if (existing.has(drinkKey(seed))) continue;
     const id = drinkId(seed);
     const price = seed.price ?? null;
