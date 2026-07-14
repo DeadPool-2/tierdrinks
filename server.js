@@ -64,7 +64,7 @@ const drinkKey = (d) => `${d.brand}|${d.name}|${d.flavor}`;
 const drinkId = (d) => slug(`${d.name}-${d.flavor}`);
 
 // ---------- store ----------
-let db = { drinks: [], log: [] };
+let db = { drinks: [], log: [], deleted: [] };
 
 function genId(prefix) {
   return `${prefix}_${Date.now().toString(36)}_${Math.random()
@@ -124,20 +124,23 @@ async function loadDb() {
     db = JSON.parse(await fs.readFile(DB_PATH, "utf8"));
     if (!Array.isArray(db.drinks)) db.drinks = [];
     if (!Array.isArray(db.log)) db.log = [];
+    if (!Array.isArray(db.deleted)) db.deleted = [];
     // migrate legacy `ratings` (upsert) → `log` (append-only)
     if (Array.isArray(db.ratings)) {
       for (const r of db.ratings) db.log.push({ id: genId("l"), ...r });
       delete db.ratings;
     }
   } catch {
-    db = { drinks: [], log: [] };
+    db = { drinks: [], log: [], deleted: [] };
   }
 
   const existing = new Set(db.drinks.map(drinkKey));
+  const tombstoned = new Set(db.deleted);
   let added = 0;
   for (const seed of seedList) {
     if (existing.has(drinkKey(seed))) continue;
     const id = drinkId(seed);
+    if (tombstoned.has(id)) continue; // user deleted it — stay deleted
     const price = seed.price ?? null;
     db.drinks.push({
       id,
@@ -149,11 +152,13 @@ async function loadDb() {
     existing.add(drinkKey(seed));
     added++;
   }
-  // backfill fields for drinks seeded before these existed
+  // backfill/refresh catalog-owned fields (image may have been re-fetched,
+  // flavor taxonomy may have grown) — ratings/prices are never touched
   let patched = 0;
   for (const d of db.drinks) {
-    if (!d.image && imageMap[d.id]) {
-      d.image = imageMap[d.id];
+    const wantImage = imageMap[d.id];
+    if (wantImage && d.image !== wantImage) {
+      d.image = wantImage;
       patched++;
     }
     if (!Array.isArray(d.priceHistory)) {
@@ -161,7 +166,8 @@ async function loadDb() {
         d.price != null ? [{ price: d.price, ts: nowIso(), user: "seed" }] : [];
     }
     if (d.collection === undefined) d.collection = null;
-    if (!d.flavorTag) d.flavorTag = tagOf(`${d.name} ${d.flavor}`);
+    const wantTag = tagOf(`${d.name} ${d.flavor}`);
+    if (d.flavorTag !== wantTag) d.flavorTag = wantTag;
   }
   if (added || patched || !db.drinks.length) await saveDb();
   console.log(
@@ -348,6 +354,8 @@ async function handleApi(req, res, url) {
     db.log = db.log.filter((e) => e.drinkId !== id);
     if (db.drinks.length === before)
       return sendJson(res, 404, { error: "not found" });
+    // tombstone: keep the seed merge from resurrecting it on next boot
+    if (!db.deleted.includes(id)) db.deleted.push(id);
     await saveDb();
     return sendJson(res, 200, { ok: true });
   }

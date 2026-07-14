@@ -23,9 +23,10 @@ cp -f "$REPO"/api.php "$REPO"/.htaccess "$DOC"/
 rm -rf "$DOC"/images
 cp -r "$REPO"/data/images "$DOC"/images
 
-# seed + protect data dir from web
+# seed + protect data dir from web.
+# db.json is KEPT: api.php merges new seed drinks into it on every request,
+# so ratings/prices survive deploys while the catalog still updates.
 cp -f "$REPO"/data/seed.json "$DATA"/seed.json
-rm -f "$DATA"/db.json   # reseed from fresh seed
 cat > "$DATA"/.htaccess <<'DENY'
 <IfModule mod_authz_core.c>
   Require all denied

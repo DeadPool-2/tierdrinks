@@ -39,6 +39,59 @@ function clampScore($val) {
   return max(0, min(10, round($n * 10) / 10));
 }
 
+// mirror of src/flavors.js tagOf() — ordered high→low priority, first hit wins
+function tagOf($text) {
+  static $groups = null;
+  if ($groups === null) $groups = array(
+    array('coffee', array('кофе','coffee','мокко','moca','эспрессо','espresso','латте','капуч')),
+    array('tea', array('чай','tea')),
+    array('caramel', array('карамель','caramel')),
+    array('vanilla', array('ваниль','vanilla')),
+    array('mango', array('манго','mango')),
+    array('peach', array('персик','peach','нектарин','nectar')),
+    array('apricot', array('абрикос','apricot')),
+    array('cherry', array('вишн','cherry','черешн')),
+    array('blueberry', array('черник','blueberry')),
+    array('cranberry', array('клюкв','cranberry')),
+    array('pomegranate', array('гранат','pomegranate')),
+    array('watermelon', array('арбуз','watermelon')),
+    array('melon', array('дын','melon')),
+    array('pineapple', array('ананас','pineapple')),
+    array('coconut', array('кокос','coconut')),
+    array('guava', array('гуава','guava')),
+    array('strawberry', array('клубник','strawberry')),
+    array('raspberry', array('малин','raspberry','razz')),
+    array('cactus', array('кактус','cactus')),
+    array('lychee', array('личи','lychee','litchi')),
+    array('barberry', array('барбарис','barberry')),
+    array('passion', array('маракуй','passion','pipeline')),
+    array('apple', array('яблок','apple')),
+    array('kiwi', array('киви','kiwi')),
+    array('feijoa', array('фейхоа','feijoa')),
+    array('banana', array('банан','banana')),
+    array('bubblegum', array('бабл','bubble','жвачк')),
+    array('marshmallow', array('маршмеллоу','marshmallow','зефир')),
+    array('mojito', array('мохито','mojito','мят','mint')),
+    array('cola', array('кола','cola')),
+    array('lemonade', array('лимонад','lemonade')),
+    array('orange', array('апельсин','orange','sunrise','dreamsicle')),
+    array('citrus', array('цитрус','citrus','лимон','лайм','lime','грейпфрут','лемонграсс','lemongrass','dew')),
+    array('grape', array('виноград','grape')),
+    array('tropical', array('тропич','тропик','tropical','tropic')),
+    array('multifruit', array('мультифрукт','мультифрут','сок','микс','multifruit','пунш','punch','khaos','хаос')),
+    array('berry', array('ягод','berry','лесн','wildberry','pacific')),
+    array('zero', array('без сахара','zero','ultra','ультра','sugarfree','sugar free','white')),
+    array('original', array('оригинал','классик','original','classic','energy','ориджинал','assault')),
+  );
+  $t = mb_strtolower(strval($text), 'UTF-8');
+  foreach ($groups as $g) {
+    foreach ($g[1] as $tok) {
+      if (strpos($t, $tok) !== false) return $g[0];
+    }
+  }
+  return 'other';
+}
+
 $TRANSLIT = array('а'=>'a','б'=>'b','в'=>'v','г'=>'g','д'=>'d','е'=>'e','ё'=>'e','ж'=>'zh','з'=>'z','и'=>'i','й'=>'y','к'=>'k','л'=>'l','м'=>'m','н'=>'n','о'=>'o','п'=>'p','р'=>'r','с'=>'s','т'=>'t','у'=>'u','ф'=>'f','х'=>'h','ц'=>'ts','ч'=>'ch','ш'=>'sh','щ'=>'sch','ъ'=>'','ы'=>'y','ь'=>'','э'=>'e','ю'=>'yu','я'=>'ya');
 function slugify($str) {
   global $TRANSLIT;
@@ -46,6 +99,38 @@ function slugify($str) {
   $s = strtr($s, $TRANSLIT);
   $s = preg_replace('/[^a-z0-9]+/u', '-', $s);
   return trim($s, '-');
+}
+
+// merge fresh seed.json into an existing db: append new catalog drinks
+// (unless tombstoned in db.deleted) and refresh catalog-owned fields on
+// seed drinks (image/flavorTag/…). Ratings, prices and log are never touched.
+// Without this, catalog updates only reached prod by wiping db.json.
+function seedMerge(&$db) {
+  $seed = seedData();
+  if (empty($seed['drinks'])) return false;
+  $changed = false;
+  $deleted = array_flip($db['deleted']);
+  $byId = array();
+  foreach ($seed['drinks'] as $sd) $byId[$sd['id']] = $sd;
+  $have = array();
+  $fields = array('image', 'flavorTag', 'description', 'collection', 'volume', 'category');
+  foreach ($db['drinks'] as $i => $d) {
+    $have[$d['id']] = true;
+    if (!isset($byId[$d['id']])) continue;
+    $sd = $byId[$d['id']];
+    foreach ($fields as $f) {
+      if (isset($sd[$f]) && (!isset($d[$f]) || $d[$f] !== $sd[$f])) {
+        $db['drinks'][$i][$f] = $sd[$f];
+        $changed = true;
+      }
+    }
+  }
+  foreach ($seed['drinks'] as $sd) {
+    if (isset($have[$sd['id']]) || isset($deleted[$sd['id']])) continue;
+    $db['drinks'][] = $sd;
+    $changed = true;
+  }
+  return $changed;
 }
 
 // locked read-modify-write; $fn(&$db, $seededNow) returns array(bool save, mixed response)
@@ -63,10 +148,12 @@ function withDb($fn) {
     $seeded = true;
   }
   if (!isset($db['log']) || !is_array($db['log'])) $db['log'] = array();
+  if (!isset($db['deleted']) || !is_array($db['deleted'])) $db['deleted'] = array();
+  $merged = seedMerge($db);
   $ret = $fn($db, $seeded);
   $save = $ret[0];
   $response = $ret[1];
-  if ($save || $seeded) {
+  if ($save || $seeded || $merged) {
     rewind($fp);
     ftruncate($fp, 0);
     fwrite($fp, json_encode($db, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
@@ -163,7 +250,7 @@ if ($method === 'POST' && $r === 'drinks') {
       'collection' => v($b, 'collection') ? mb_substr($b['collection'], 0, 40) : null,
       'name' => $name,
       'flavor' => $flavor,
-      'flavorTag' => 'other',
+      'flavorTag' => tagOf($name . ' ' . $flavor),
       'category' => v($b, 'category') === 'soda' ? 'soda' : 'energy',
       'volume' => is_numeric(v($b, 'volume')) ? (float) $b['volume'] : null,
       'price' => $price,
@@ -186,6 +273,8 @@ if ($method === 'DELETE' && $r === 'drinks' && $id !== null) {
     $db['drinks'] = $drinks;
     $db['log'] = $log;
     if (count($db['drinks']) === $before) return array(false, array('__err' => array(404, 'not found')));
+    // tombstone: keep seedMerge from resurrecting a deleted seed drink
+    if (!in_array($id, $db['deleted'], true)) $db['deleted'][] = $id;
     return array(true, array('ok' => true));
   }));
 }
