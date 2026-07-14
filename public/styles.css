@@ -181,6 +181,17 @@ main {
   border-color: var(--accent);
 }
 
+/* category switch (energy / soda) — filled accent to read as a mode, not a filter */
+.catbar {
+  margin-bottom: 2px;
+}
+
+.catbar .filter-chip.on {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0c0f16;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));

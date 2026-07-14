@@ -48,8 +48,12 @@ for (const d of SEED_DRINKS) if (d.price && brandPrice[d.brand] == null) brandPr
 
 async function main() {
   const data = JSON.parse(await fs.readFile(process.argv[2], 'utf8'));
-  const seen = new Set(SEED_DRINKS.map(key));
-  const extra = [];
+  // append to the existing seedExtra — a rerun must not wipe prior lineups
+  const existing = JSON.parse(
+    await fs.readFile(EXTRA_PATH, 'utf8').catch(() => '[]'),
+  );
+  const seen = new Set([...SEED_DRINKS.map(key), ...existing.map(key)]);
+  const extra = [...existing];
   const pairs = [];
   let dupes = 0;
 
@@ -69,10 +73,11 @@ async function main() {
         name,
         flavor,
         flavorTag: tagOf(`${name} ${flavor}`),
-        category: 'energy',
-        volume: null,
-        price: brandPrice[brand] || 100,
-        description: '',
+        category: (it.category || brandRes.category) === 'soda' ? 'soda' : 'energy',
+        volume: Number(it.volume) || null,
+        price: Math.round(Number(it.price)) || brandPrice[brand] || 100,
+        description: it.description ? String(it.description).slice(0, 200) : '',
+        sourceUrl: it.sourceUrl || null,
         image: null,
       });
       if (it.imageUrl) pairs.push({ id, url: it.imageUrl });

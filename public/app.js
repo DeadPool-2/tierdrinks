@@ -85,6 +85,7 @@ const state = {
   me: localStorage.getItem("td.me") || null,
   view: "catalog",
   search: "",
+  categoryFilter: "energy",
   brandFilter: null,
   collectionFilter: null,
   tierMode: "all",
@@ -214,9 +215,13 @@ const drankCount = (drinkId, user) =>
     .length;
 
 // brand display order: Monster, Red Bull pinned first, then first-seen order
-function brandOrder() {
+const categoryOf = (d) => d.category || "energy";
+function brandOrder(cat) {
   const seen = [];
-  for (const d of state.drinks) if (!seen.includes(d.brand)) seen.push(d.brand);
+  for (const d of state.drinks) {
+    if (cat && categoryOf(d) !== cat) continue;
+    if (!seen.includes(d.brand)) seen.push(d.brand);
+  }
   const pinned = ["Monster", "Red Bull"];
   return [
     ...pinned.filter((b) => seen.includes(b)),
@@ -280,7 +285,7 @@ function render() {
 // ---------- catalog ----------
 function catalogList() {
   const q = state.search.trim().toLowerCase();
-  let list = state.drinks.slice();
+  let list = state.drinks.filter((d) => categoryOf(d) === state.categoryFilter);
   if (state.brandFilter)
     list = list.filter((d) => d.brand === state.brandFilter);
   if (state.collectionFilter)
@@ -291,7 +296,7 @@ function catalogList() {
         .toLowerCase()
         .includes(q)
     );
-  const order = brandOrder();
+  const order = brandOrder(state.categoryFilter);
   list.sort((a, b) => order.indexOf(a.brand) - order.indexOf(b.brand));
   return list;
 }
@@ -333,7 +338,8 @@ function cardMarkup(d) {
 }
 
 function renderCatalog() {
-  const brands = brandOrder();
+  const brands = brandOrder(state.categoryFilter);
+  const hasSoda = state.drinks.some((d) => categoryOf(d) === "soda");
   const collections = state.brandFilter
     ? [
         ...new Set(
@@ -350,6 +356,18 @@ function renderCatalog() {
         state.search
       )}" />
     </div>
+    ${
+      hasSoda
+        ? `<div class="chipbar catbar" id="catbar">
+            <button class="filter-chip ${
+              state.categoryFilter === "energy" ? "on" : ""
+            }" data-cat="energy">⚡ Энергетики</button>
+            <button class="filter-chip ${
+              state.categoryFilter === "soda" ? "on" : ""
+            }" data-cat="soda">🥤 Газировка</button>
+          </div>`
+        : ""
+    }
     <div class="chipbar" id="brandbar">
       <button class="filter-chip ${
         !state.brandFilter ? "on" : ""
@@ -388,6 +406,16 @@ function renderCatalog() {
     state.search = e.target.value;
     renderGrid();
   };
+  const catbar = $("#catbar");
+  if (catbar)
+    catbar.onclick = (e) => {
+      const c = e.target.closest("[data-cat]");
+      if (!c || c.dataset.cat === state.categoryFilter) return;
+      state.categoryFilter = c.dataset.cat;
+      state.brandFilter = null;
+      state.collectionFilter = null;
+      renderCatalog();
+    };
   $("#brandbar").onclick = (e) => {
     const b = e.target.closest("[data-brand]");
     if (!b) return;

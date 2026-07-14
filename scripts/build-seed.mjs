@@ -34,7 +34,8 @@ const main = async () => {
       collection: s.collection ?? null,
       name: s.name,
       flavor: s.flavor,
-      flavorTag: s.flavorTag || tagOf(`${s.name} ${s.flavor}`),
+      // always recompute: the taxonomy grows, stored tags go stale
+      flavorTag: tagOf(`${s.name} ${s.flavor}`),
       category: s.category || 'energy',
       volume: s.volume ?? null,
       price,
