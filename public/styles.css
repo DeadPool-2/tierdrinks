@@ -213,6 +213,19 @@ main {
   cursor: pointer;
 }
 
+.export-link {
+  display: block;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  text-decoration: none;
+  padding: 10px 0 4px;
+}
+
+.export-link:hover {
+  color: var(--text);
+}
+
 .catbar .filter-chip.on {
   background: var(--accent);
   border-color: var(--accent);
@@ -414,25 +427,43 @@ main {
 }
 
 .tier-mini {
-  width: 52px;
+  width: 72px;
   cursor: pointer;
+  transition: transform 0.12s;
+}
+
+.tier-mini:active {
+  transform: scale(0.95);
 }
 
 .tier-mini .tm-thumb {
-  width: 52px;
-  height: 52px;
-  border-radius: 10px;
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
   overflow: hidden;
   display: grid;
   place-items: center;
   border: 1px solid var(--line);
+  position: relative;
 }
 
 .tier-mini .tm-thumb img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  padding: 4px;
+  padding: 5px;
+}
+
+.tier-mini .tm-score {
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  background: rgba(12, 15, 22, 0.78);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 7px;
 }
 
 .tier-mini .ph {
@@ -441,11 +472,11 @@ main {
 }
 
 .tier-mini .tm-name {
-  font-size: 9px;
+  font-size: 10px;
   color: var(--muted);
   text-align: center;
-  margin-top: 3px;
-  line-height: 1.1;
+  margin-top: 4px;
+  line-height: 1.15;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;

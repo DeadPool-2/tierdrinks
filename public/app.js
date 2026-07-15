@@ -135,10 +135,21 @@ function thumbMarkup(d, cls = "") {
   if (d.image)
     return `<img src="${esc(d.image)}" alt="${esc(
       d.name
-    )}" onerror="window.__phFail(this)" data-name="${esc(
+    )}" loading="lazy" decoding="async" onerror="window.__phFail(this)" data-name="${esc(
       d.name
     )}" data-color="${esc(brandColor(d))}" />`;
   return phMarkup(d, cls);
+}
+
+// small tier-list / leaderboard tile; score is optional
+function tierMiniMarkup(d, score) {
+  return `<div class="tier-mini" data-id="${d.id}" title="${esc(d.name)}${
+    d.flavor ? " · " + esc(d.flavor) : ""
+  }">
+    <div class="tm-thumb">${thumbMarkup(d, "tier-mini-ph")}${
+    score != null ? `<div class="tm-score">${fmt(score)}</div>` : ""
+  }</div>
+    <div class="tm-name">${esc(d.name)}</div></div>`;
 }
 window.__phFail = (img) => {
   const div = document.createElement("div");
@@ -498,17 +509,7 @@ function renderTier() {
 
   const rows = TIERS.map((t) => {
     const items = scored.filter((x) => tierOf(x.score).k === t.k);
-    const mini = items
-      .map(
-        (x) =>
-          `<div class="tier-mini" data-id="${
-            x.d.id
-          }"><div class="tm-thumb">${thumbMarkup(
-            x.d,
-            "tier-mini-ph"
-          )}</div><div class="tm-name">${esc(x.d.name)}</div></div>`
-      )
-      .join("");
+    const mini = items.map((x) => tierMiniMarkup(x.d, x.score)).join("");
     return `<div class="tier-row"><div class="tier-label" style="background:${
       t.color
     }">${t.k}</div><div class="tier-items">${
@@ -547,15 +548,7 @@ function renderTier() {
     ${
       unrated.length
         ? `<div class="unrated-block"><h3>Ещё не в тир-листе</h3><div class="tier-items">${unrated
-            .map(
-              (d) =>
-                `<div class="tier-mini" data-id="${
-                  d.id
-                }"><div class="tm-thumb">${thumbMarkup(
-                  d,
-                  "tier-mini-ph"
-                )}</div><div class="tm-name">${esc(d.name)}</div></div>`
-            )
+            .map((d) => tierMiniMarkup(d, null))
             .join("")}</div></div>`
         : ""
     }`;
@@ -1014,17 +1007,7 @@ function renderStats() {
         ? `<section class="stat-sec">
       <h3>🏆 Топ напитков</h3>
       <div class="tier-items top-drinks">${top5
-        .map(
-          (x) =>
-            `<div class="tier-mini" data-id="${
-              x.d.id
-            }"><div class="tm-thumb">${thumbMarkup(
-              x.d,
-              "tier-mini-ph"
-            )}</div><div class="tm-name">${fmt(x.score)} · ${esc(
-              x.d.name
-            )}</div></div>`
-        )
+        .map((x) => tierMiniMarkup(x.d, x.score))
         .join("")}</div>
       <div class="tier-dist">${tierDist
         .map(
@@ -1083,7 +1066,8 @@ function renderStats() {
             )}</b>.</div>`
           : ""
       }
-    </section>`;
+    </section>
+    <a class="export-link" href="/api/export" download>⬇︎ Скачать бэкап оценок (JSON)</a>`;
 
   const st = $(".scope-toggle");
   if (st)
