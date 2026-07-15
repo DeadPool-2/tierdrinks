@@ -29,6 +29,10 @@ export const BRAND_COLORS = {
   "E-ON": "#8bc34a",
   Jaguar: "#ff6f00",
   Volt: "#fdd835",
+  Reign: "#8338ec",
+  Bang: "#ff3864",
+  NOS: "#ff6d00",
+  Effect: "#5e60ce",
 };
 
 export const SEED_DRINKS = [
