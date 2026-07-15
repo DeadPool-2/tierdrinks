@@ -12,7 +12,8 @@ import { tagOf } from "./src/flavors.js";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT) || 3000;
 const PUBLIC_DIR = path.join(__dirname, "public");
-const DATA_DIR = path.join(__dirname, "data");
+// TD_DATA_DIR lets the smoke tests point the store at a throwaway dir
+const DATA_DIR = process.env.TD_DATA_DIR || path.join(__dirname, "data");
 const IMAGES_DIR = path.join(DATA_DIR, "images");
 const DB_PATH = path.join(DATA_DIR, "db.json");
 
@@ -80,6 +81,26 @@ async function atomicWrite(file, text) {
 
 async function saveDb() {
   await atomicWrite(DB_PATH, JSON.stringify(db, null, 2));
+  await dailyBackup().catch(() => {});
+}
+
+// rotating daily copy of the db (keeps the last 7); best-effort
+async function dailyBackup() {
+  const dir = path.join(DATA_DIR, "backups");
+  await fs.mkdir(dir, { recursive: true });
+  const today = path.join(
+    dir,
+    `db-${new Date().toISOString().slice(0, 10)}.json`
+  );
+  try {
+    await fs.access(today);
+    return; // already have today's copy
+  } catch {}
+  await fs.copyFile(DB_PATH, today);
+  const files = (await fs.readdir(dir)).filter((f) => /^db-.*\.json$/.test(f));
+  files.sort();
+  while (files.length > 7)
+    await fs.rm(path.join(dir, files.shift()), { force: true });
 }
 
 // imageMap.json (id → '/images/x.jpg') is produced by scripts/fetch-images.mjs
@@ -283,6 +304,17 @@ async function handleApi(req, res, url) {
       log: db.log,
       brandColors: BRAND_COLORS,
     });
+  }
+
+  if (req.method === "GET" && pathname === "/api/export") {
+    const body = JSON.stringify(db, null, 2);
+    res.writeHead(200, {
+      "content-type": "application/json; charset=utf-8",
+      "content-disposition": `attachment; filename="tierdrinks-backup-${new Date()
+        .toISOString()
+        .slice(0, 10)}.json"`,
+    });
+    return res.end(body);
   }
 
   // append a tasting entry (one drunk can + a rating snapshot)

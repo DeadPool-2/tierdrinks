@@ -189,10 +189,25 @@ function withDb($fn) {
     ftruncate($fp, 0);
     fwrite($fp, json_encode($db, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
     fflush($fp);
+    dailyBackup();
   }
   flock($fp, LOCK_UN);
   fclose($fp);
   return $response;
+}
+
+// rotating daily copy of the db (keeps the last 7); best-effort, never fatal.
+// data/ is closed from the web by its .htaccess, backups included.
+function dailyBackup() {
+  $dir = DATA_DIR . '/backups';
+  if (!is_dir($dir)) @mkdir($dir, 0755, true);
+  $today = $dir . '/db-' . date('Y-m-d') . '.json';
+  if (file_exists($today)) return;
+  @copy(DB, $today);
+  $files = glob($dir . '/db-*.json');
+  if ($files === false) return;
+  sort($files);
+  while (count($files) > 7) @unlink(array_shift($files));
 }
 function respond($resp) {
   if (isset($resp['__err'])) jexit($resp['__err'][0], array('error' => $resp['__err'][1]));
@@ -215,6 +230,16 @@ if ($method === 'GET' && $r === 'state') {
   respond(withDb(function (&$db, $seeded) {
     return array(false, array('drinks' => $db['drinks'], 'log' => $db['log'], 'brandColors' => seedData()['brandColors']));
   }));
+}
+
+if ($method === 'GET' && $r === 'export') {
+  $db = withDb(function (&$db, $seeded) {
+    return array(false, $db);
+  });
+  header('Content-Type: application/json; charset=utf-8');
+  header('Content-Disposition: attachment; filename="tierdrinks-backup-' . date('Y-m-d') . '.json"');
+  echo json_encode($db, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+  exit;
 }
 
 if ($method === 'POST' && $r === 'log' && $id === null) {
