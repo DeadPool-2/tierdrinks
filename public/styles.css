@@ -224,6 +224,11 @@ main {
 }
 
 .card .thumb img {
+  /* absolute fill: in a grid tile sized by aspect-ratio, height:100% on a
+     flow image resolves against the content size, so tall renders overflow
+     the tile and get clipped — pin the image to the tile box instead */
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: contain;
