@@ -86,10 +86,83 @@ export const SEED_DRINKS = [
     "Red Bull",
     "Editions",
     "Red Bull Green Edition",
-    "Кактус",
+    "Драконий фрукт",
     0.355,
     159,
-    "Экзотический кактус."
+    "Экзотический драконий фрукт."
+  ),
+  // Editions вне официальной РФ-линейки (Target US, price=null — внесёте свою)
+  D(
+    "Red Bull",
+    "Editions",
+    "Red Bull Amber Edition",
+    "Клубника-абрикос",
+    0.355,
+    null,
+    "Клубника с абрикосом."
+  ),
+  D(
+    "Red Bull",
+    "Editions",
+    "Red Bull Peach Edition",
+    "Белый персик-нектарин",
+    0.355,
+    null,
+    "Белый персик и нектарин."
+  ),
+  D(
+    "Red Bull",
+    "Editions",
+    "Red Bull Coconut Edition",
+    "Кокос-черника",
+    0.355,
+    null,
+    "Кокос и ягоды."
+  ),
+  D(
+    "Red Bull",
+    "Editions",
+    "Red Bull Sea Blue Edition",
+    "Ирга",
+    0.355,
+    null,
+    "Ирга (juneberry)."
+  ),
+  D(
+    "Red Bull",
+    "Editions",
+    "Red Bull Pink Edition",
+    "Лесные ягоды",
+    0.355,
+    null,
+    "Малина, лесные ягоды, вербена."
+  ),
+  D(
+    "Red Bull",
+    "Editions",
+    "Red Bull Summer Edition",
+    "Судачи-лайм",
+    0.355,
+    null,
+    "Цитрус судачи с лаймом, лимитка 2026."
+  ),
+  D(
+    "Red Bull",
+    "Editions",
+    "Red Bull Spring Edition",
+    "Вишня-сакура",
+    0.355,
+    null,
+    "Вишня с сакурой, лимитка 2026."
+  ),
+  D(
+    "Red Bull",
+    "Classic",
+    "Red Bull Zero",
+    "Ноль сахара",
+    0.355,
+    null,
+    "Zero — лёгкая альтернатива Sugarfree."
   ),
 
   // ─── Monster ─── Original / Ultra / Juiced / Rehab / Java / Reserve
@@ -111,6 +184,7 @@ export const SEED_DRINKS = [
     140,
     "Тёмный кола-вишнёвый профиль."
   ),
+  // NB: "Zero Ultra" is the white can — there is no separate "Ultra White" SKU
   D(
     "Monster",
     "Ultra",
@@ -118,16 +192,7 @@ export const SEED_DRINKS = [
     "Без сахара",
     0.449,
     150,
-    "Чёрная Ultra, ноль сахара."
-  ),
-  D(
-    "Monster",
-    "Ultra",
-    "Monster Ultra White",
-    "Цитрус, без сахара",
-    0.449,
-    150,
-    "Лёгкий цитрус, ноль сахара."
+    "Белая Zero Ultra — лёгкий цитрус, ноль сахара."
   ),
   D(
     "Monster",
