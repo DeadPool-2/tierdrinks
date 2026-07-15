@@ -169,9 +169,21 @@ async function loadDb() {
     const wantTag = tagOf(`${d.name} ${d.flavor}`);
     if (d.flavorTag !== wantTag) d.flavorTag = wantTag;
   }
-  if (added || patched || !db.drinks.length) await saveDb();
+  // prune seed-born drinks that dropped out of the seed (superseded lineup):
+  // only if the user never rated or re-priced them — user data is sacred
+  const seedIds = new Set(seedList.map(drinkId));
+  const loggedIds = new Set(db.log.map((e) => e.drinkId));
+  const beforePrune = db.drinks.length;
+  db.drinks = db.drinks.filter((d) => {
+    const ph = Array.isArray(d.priceHistory) ? d.priceHistory : [];
+    const fromSeed = ph[0]?.user === "seed";
+    const userTouched = loggedIds.has(d.id) || ph.length > 1;
+    return !(fromSeed && !userTouched && !seedIds.has(d.id));
+  });
+  const pruned = beforePrune - db.drinks.length;
+  if (added || patched || pruned || !db.drinks.length) await saveDb();
   console.log(
-    `[db] ${db.drinks.length} drinks, ${db.log.length} log (+${added} seeded, ${patched} images)`
+    `[db] ${db.drinks.length} drinks, ${db.log.length} log (+${added} seeded, ${patched} images, -${pruned} pruned)`
   );
 }
 

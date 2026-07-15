@@ -130,6 +130,22 @@ function seedMerge(&$db) {
     $db['drinks'][] = $sd;
     $changed = true;
   }
+  // prune seed-born drinks that dropped out of the seed (superseded lineup):
+  // only if the user never rated or re-priced them — user data is sacred
+  $logged = array();
+  foreach ($db['log'] as $e) $logged[$e['drinkId']] = true;
+  $kept = array();
+  foreach ($db['drinks'] as $d) {
+    $ph = (isset($d['priceHistory']) && is_array($d['priceHistory'])) ? $d['priceHistory'] : array();
+    $fromSeed = isset($ph[0]['user']) && $ph[0]['user'] === 'seed';
+    $userTouched = isset($logged[$d['id']]) || count($ph) > 1;
+    if ($fromSeed && !$userTouched && !isset($byId[$d['id']])) {
+      $changed = true;
+      continue;
+    }
+    $kept[] = $d;
+  }
+  $db['drinks'] = $kept;
   return $changed;
 }
 
