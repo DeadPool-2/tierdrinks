@@ -89,6 +89,7 @@ const state = {
   brandFilter: null,
   collectionFilter: null,
   tierMode: "all",
+  tierCategory: "energy",
   statScope: localStorage.getItem("td.me") || "a",
 };
 
@@ -213,6 +214,42 @@ const fmt = (n) => (n == null ? "—" : (Math.round(n * 10) / 10).toFixed(1));
 const drankCount = (drinkId, user) =>
   state.log.filter((e) => e.drinkId === drinkId && (!user || e.user === user))
     .length;
+const fmtRub = (n) => n.toLocaleString("ru-RU") + " ₽";
+
+// price of a drink at the moment of a tasting (last price set before ts)
+function priceAt(d, ts) {
+  const ph = Array.isArray(d.priceHistory) ? d.priceHistory : [];
+  let p = null;
+  for (const rec of ph) {
+    if (rec.ts <= ts) p = rec.price;
+    else break;
+  }
+  if (p == null) p = ph.length ? ph[0].price : d.price;
+  return p || 0;
+}
+
+// money spent by a user: every tasting in the log = one can bought at its
+// then-current price; drinks without any price are counted separately
+function spentBy(user) {
+  let total = 0,
+    cans = 0,
+    noPrice = 0;
+  const byBrand = {};
+  for (const e of state.log) {
+    if (e.user !== user) continue;
+    const d = drinkById(e.drinkId);
+    if (!d) continue;
+    cans++;
+    const p = priceAt(d, e.ts);
+    if (!p) {
+      noPrice++;
+      continue;
+    }
+    total += p;
+    byBrand[d.brand] = (byBrand[d.brand] || 0) + p;
+  }
+  return { total, cans, noPrice, byBrand };
+}
 
 // brand display order: Monster, Red Bull pinned first, then first-seen order
 const categoryOf = (d) => d.category || "energy";
@@ -447,11 +484,15 @@ function renderGrid() {
 
 // ---------- tier list ----------
 function renderTier() {
-  const scored = state.drinks
+  const hasSoda = state.drinks.some((d) => categoryOf(d) === "soda");
+  const pool = hasSoda
+    ? state.drinks.filter((d) => categoryOf(d) === state.tierCategory)
+    : state.drinks.slice();
+  const scored = pool
     .map((d) => ({ d, ...aggregate(d.id, state.tierMode) }))
     .filter((x) => x.score != null)
     .sort((a, b) => b.score - a.score);
-  const unrated = state.drinks.filter(
+  const unrated = pool.filter(
     (d) => aggregate(d.id, state.tierMode).score == null
   );
 
@@ -481,6 +522,18 @@ function renderTier() {
     }" data-mode="${m}">${label}</button>`;
 
   $("#view").innerHTML = `
+    ${
+      hasSoda
+        ? `<div class="chipbar catbar" id="tier-catbar">
+            <button class="filter-chip ${
+              state.tierCategory === "energy" ? "on" : ""
+            }" data-cat="energy">⚡ Энергетики</button>
+            <button class="filter-chip ${
+              state.tierCategory === "soda" ? "on" : ""
+            }" data-cat="soda">🥤 Газировка</button>
+          </div>`
+        : ""
+    }
     <div class="tier-modes">
       ${modeBtn("all", "Общий")}${modeBtn("me", "Мои")}${modeBtn(
     "friend",
@@ -514,6 +567,14 @@ function renderTier() {
       renderTier();
     }
   };
+  const tcb = $("#tier-catbar");
+  if (tcb)
+    tcb.onclick = (e) => {
+      const c = e.target.closest("[data-cat]");
+      if (!c || c.dataset.cat === state.tierCategory) return;
+      state.tierCategory = c.dataset.cat;
+      renderTier();
+    };
   $("#view").onclick = (e) => {
     const mini = e.target.closest(".tier-mini");
     if (mini) openRating(mini.dataset.id);
@@ -791,6 +852,81 @@ function renderStats() {
     : null;
   const spat = both.slice().sort((a, b) => b.diff - a.diff)[0];
 
+  // spending (drank = bought at the then-current price)
+  const spend = { a: spentBy("a"), b: spentBy("b") };
+  const spendBrands = {};
+  for (const u of ["a", "b"])
+    for (const b in spend[u].byBrand)
+      spendBrands[b] = (spendBrands[b] || 0) + spend[u].byBrand[b];
+  const spendBrandMax = Math.max(1, ...Object.values(spendBrands));
+  const spendRows =
+    Object.entries(spendBrands)
+      .sort((x, y) => y[1] - x[1])
+      .slice(0, 6)
+      .map(
+        ([b, sum]) => `<div class="bar-row"><span class="bar-lab">${esc(
+          b
+        )}</span>
+        <div class="bar"><i style="width:${
+          (sum / spendBrandMax) * 100
+        }%;background:${state.brandColors[b] || "#888"}"></i></div>
+        <span class="bar-val">${fmtRub(sum)}</span></div>`
+      )
+      .join("") ||
+    '<div class="muted-note">Записывай дегустации — посчитаем траты.</div>';
+  const avgCan = (u) => {
+    const priced = spend[u].cans - spend[u].noPrice;
+    return priced ? Math.round(spend[u].total / priced) : 0;
+  };
+  const spendDiff = Math.abs(spend.a.total - spend.b.total);
+  const bigSpender = spend.a.total >= spend.b.total ? "a" : "b";
+  const noPriceTotal = spend.a.noPrice + spend.b.noPrice;
+
+  // catalog progress
+  const triedIds = new Set(state.log.map((e) => e.drinkId));
+  const catProg = ["energy", "soda"]
+    .map((cat) => {
+      const inCat = state.drinks.filter((d) => categoryOf(d) === cat);
+      return {
+        label: cat === "energy" ? "⚡ Энергетики" : "🥤 Газировка",
+        all: inCat.length,
+        done: inCat.filter((d) => triedIds.has(d.id)).length,
+      };
+    })
+    .filter((x) => x.all);
+
+  // leaderboard + tier distribution (both profiles combined)
+  const ranked = state.drinks
+    .map((d) => ({ d, ...aggregate(d.id, "all") }))
+    .filter((x) => x.score != null)
+    .sort((a, b) => b.score - a.score);
+  const top5 = ranked.slice(0, 5);
+  const tierDist = TIERS.map((t) => ({
+    t,
+    n: ranked.filter((x) => tierOf(x.score).k === t.k).length,
+  }));
+
+  // generosity: average score each user gives
+  const avgFor = (u) => {
+    const es = state.log.filter((e) => e.user === u);
+    return es.length
+      ? es.reduce((s, e) => s + entryScore(e), 0) / es.length
+      : null;
+  };
+  const genA = avgFor("a"),
+    genB = avgFor("b");
+
+  // frequent tags for the selected profile
+  const tagCount = {};
+  state.log
+    .filter((e) => e.user === scope)
+    .forEach((e) =>
+      (e.tags || []).forEach((t) => (tagCount[t] = (tagCount[t] || 0) + 1))
+    );
+  const topTags = Object.entries(tagCount)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5);
+
   $("#view").innerHTML = `
     <section class="stat-sec">
       <h3>🥤 Выпито</h3>
@@ -807,6 +943,53 @@ function renderStats() {
     </section>
 
     <section class="stat-sec">
+      <h3>💰 Потрачено</h3>
+      <div class="big-nums">
+        <div class="bignum ${scope === "a" ? "hl" : ""}"><b>${fmtRub(
+    spend.a.total
+  )}</b><span>${USER_NAMES.a}</span></div>
+        <div class="bignum ${scope === "b" ? "hl" : ""}"><b>${fmtRub(
+    spend.b.total
+  )}</b><span>${USER_NAMES.b}</span></div>
+        <div class="bignum"><b>${fmtRub(
+          spend.a.total + spend.b.total
+        )}</b><span>вместе</span></div>
+      </div>
+      ${
+        spend.a.total + spend.b.total
+          ? `<div class="muted-note">${
+              spendDiff
+                ? `<b>${esc(USER_NAMES[bigSpender])}</b> потратил на ${fmtRub(
+                    spendDiff
+                  )} больше.`
+                : "Потратили поровну."
+            } Средний чек: ${USER_NAMES.a} ${
+              avgCan("a") ? fmtRub(avgCan("a")) : "—"
+            } · ${USER_NAMES.b} ${
+              avgCan("b") ? fmtRub(avgCan("b")) : "—"
+            } за банку.</div>`
+          : ""
+      }
+      <div class="bars">${spendRows}</div>
+      ${
+        noPriceTotal
+          ? `<div class="muted-note">⚠️ ${noPriceTotal} 🥤 без цены — проставь ✎ в карточке, чтобы попали в счёт.</div>`
+          : ""
+      }
+    </section>
+
+    <section class="stat-sec">
+      <h3>🗺️ Прогресс каталога</h3>
+      <div class="bars">${catProg
+        .map(
+          (c) => `<div class="bar-row"><span class="bar-lab">${c.label}</span>
+        <div class="bar"><i style="width:${(c.done / c.all) * 100}%"></i></div>
+        <span class="bar-val">${c.done} / ${c.all}</span></div>`
+        )
+        .join("")}</div>
+    </section>
+
+    <section class="stat-sec">
       <h3>❤️ Любимые вкусы</h3>
       <div class="scope-toggle">
         <button class="${scope === "a" ? "on" : ""}" data-scope="a">${
@@ -817,7 +1000,41 @@ function renderStats() {
   }</button>
       </div>
       <div class="bars">${flavRows}</div>
+      ${
+        topTags.length
+          ? `<div class="tag-cloud">${topTags
+              .map(([t, n]) => `<span class="tag on">${esc(t)} · ${n}×</span>`)
+              .join("")}</div>`
+          : ""
+      }
     </section>
+
+    ${
+      top5.length
+        ? `<section class="stat-sec">
+      <h3>🏆 Топ напитков</h3>
+      <div class="tier-items top-drinks">${top5
+        .map(
+          (x) =>
+            `<div class="tier-mini" data-id="${
+              x.d.id
+            }"><div class="tm-thumb">${thumbMarkup(
+              x.d,
+              "tier-mini-ph"
+            )}</div><div class="tm-name">${fmt(x.score)} · ${esc(
+              x.d.name
+            )}</div></div>`
+        )
+        .join("")}</div>
+      <div class="tier-dist">${tierDist
+        .map(
+          (x) =>
+            `<span class="tier-chip" style="background:${x.t.color}">${x.t.k} ${x.n}</span>`
+        )
+        .join("")}</div>
+    </section>`
+        : ""
+    }
 
     <section class="stat-sec">
       <h3>💸 Динамика цен</h3>
@@ -857,6 +1074,15 @@ function renderStats() {
                 : ""
             }</div></div>`
       }
+      ${
+        genA != null && genB != null
+          ? `<div class="muted-note">Щедрость на баллы: ${
+              USER_NAMES.a
+            } в среднем ставит <b>${fmt(genA)}</b>, ${USER_NAMES.b} — <b>${fmt(
+              genB
+            )}</b>.</div>`
+          : ""
+      }
     </section>`;
 
   const st = $(".scope-toggle");
@@ -867,6 +1093,12 @@ function renderStats() {
         state.statScope = b.dataset.scope;
         renderStats();
       }
+    };
+  const td = $(".top-drinks");
+  if (td)
+    td.onclick = (e) => {
+      const mini = e.target.closest(".tier-mini");
+      if (mini) openRating(mini.dataset.id);
     };
 }
 
