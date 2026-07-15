@@ -153,7 +153,9 @@ async function loadDb() {
     added++;
   }
   // backfill/refresh catalog-owned fields (image may have been re-fetched,
-  // flavor taxonomy may have grown) — ratings/prices are never touched
+  // flavor taxonomy may have grown) — ratings are never touched; the price
+  // follows the seed only until the user edits it
+  const seedByKey = new Map(seedList.map((s) => [drinkKey(s), s]));
   let patched = 0;
   for (const d of db.drinks) {
     const wantImage = imageMap[d.id];
@@ -168,6 +170,17 @@ async function loadDb() {
     if (d.collection === undefined) d.collection = null;
     const wantTag = tagOf(`${d.name} ${d.flavor}`);
     if (d.flavorTag !== wantTag) d.flavorTag = wantTag;
+    const sd = seedByKey.get(drinkKey(d));
+    const userPriced = d.priceHistory.some((r) => r.user !== "seed");
+    if (sd && !userPriced) {
+      const sp = sd.price ?? null;
+      if ((d.price ?? null) !== sp) {
+        d.price = sp;
+        d.priceHistory =
+          sp != null ? [{ price: sp, ts: nowIso(), user: "seed" }] : [];
+        patched++;
+      }
+    }
   }
   // prune seed-born drinks that dropped out of the seed (superseded lineup):
   // only if the user never rated or re-priced them — user data is sacred

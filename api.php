@@ -124,6 +124,21 @@ function seedMerge(&$db) {
         $changed = true;
       }
     }
+    // seed-owned price follows the seed until the user edits it
+    $ph = (isset($d['priceHistory']) && is_array($d['priceHistory'])) ? $d['priceHistory'] : array();
+    $userPriced = false;
+    foreach ($ph as $rec) {
+      if (isset($rec['user']) && $rec['user'] !== 'seed') { $userPriced = true; break; }
+    }
+    if (!$userPriced) {
+      $sp = isset($sd['price']) ? $sd['price'] : null;
+      $dbp = isset($d['price']) ? $d['price'] : null;
+      if ($dbp !== $sp) {
+        $db['drinks'][$i]['price'] = $sp;
+        $db['drinks'][$i]['priceHistory'] = isset($sd['priceHistory']) ? $sd['priceHistory'] : array();
+        $changed = true;
+      }
+    }
   }
   foreach ($seed['drinks'] as $sd) {
     if (isset($have[$sd['id']]) || isset($deleted[$sd['id']])) continue;
