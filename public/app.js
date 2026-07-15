@@ -88,8 +88,6 @@ const state = {
   categoryFilter: "energy",
   brandFilter: null,
   collectionFilter: null,
-  sortBy: "default",
-  waitFilter: false,
   tierMode: "all",
   tierCategory: "energy",
   statScope: localStorage.getItem("td.me") || "a",
@@ -333,20 +331,9 @@ function render() {
 }
 
 // ---------- catalog ----------
-// drinks the friend already rated but the active user has not
-function waitingForMe() {
-  return state.drinks.filter(
-    (d) => latestEntry(d.id, other(state.me)) && !latestEntry(d.id, state.me)
-  );
-}
-
 function catalogList() {
   const q = state.search.trim().toLowerCase();
   let list = state.drinks.filter((d) => categoryOf(d) === state.categoryFilter);
-  if (state.waitFilter) {
-    const waitIds = new Set(waitingForMe().map((d) => d.id));
-    list = list.filter((d) => waitIds.has(d.id));
-  }
   if (state.brandFilter)
     list = list.filter((d) => d.brand === state.brandFilter);
   if (state.collectionFilter)
@@ -359,18 +346,6 @@ function catalogList() {
     );
   const order = brandOrder(state.categoryFilter);
   list.sort((a, b) => order.indexOf(a.brand) - order.indexOf(b.brand));
-  // secondary orderings on top of the stable brand order
-  const scoreOf = (d) => aggregate(d.id, "all").score;
-  if (state.sortBy === "rating")
-    list.sort((a, b) => (scoreOf(b) ?? -1) - (scoreOf(a) ?? -1));
-  else if (state.sortBy === "price-asc")
-    list.sort((a, b) => (a.price ?? Infinity) - (b.price ?? Infinity));
-  else if (state.sortBy === "price-desc")
-    list.sort((a, b) => (b.price ?? -1) - (a.price ?? -1));
-  else if (state.sortBy === "unrated")
-    list.sort(
-      (a, b) => (scoreOf(a) == null ? 0 : 1) - (scoreOf(b) == null ? 0 : 1)
-    );
   return list;
 }
 
@@ -423,30 +398,11 @@ function renderCatalog() {
       ]
     : [];
 
-  const waitCount = waitingForMe().length;
   $("#view").innerHTML = `
     <div class="toolbar">
       <input class="search" id="search" placeholder="Поиск напитка…" value="${esc(
         state.search
       )}" />
-      <select class="sort-select" id="sort" title="Сортировка">
-        <option value="default" ${
-          state.sortBy === "default" ? "selected" : ""
-        }>По брендам</option>
-        <option value="rating" ${
-          state.sortBy === "rating" ? "selected" : ""
-        }>По рейтингу</option>
-        <option value="price-asc" ${
-          state.sortBy === "price-asc" ? "selected" : ""
-        }>Дешевле</option>
-        <option value="price-desc" ${
-          state.sortBy === "price-desc" ? "selected" : ""
-        }>Дороже</option>
-        <option value="unrated" ${
-          state.sortBy === "unrated" ? "selected" : ""
-        }>Не пробовали</option>
-      </select>
-      <button class="dice-btn" id="dice" title="Случайный из непробованных">🎲</button>
     </div>
     ${
       hasSoda
@@ -457,13 +413,6 @@ function renderCatalog() {
             <button class="filter-chip ${
               state.categoryFilter === "soda" ? "on" : ""
             }" data-cat="soda">🥤 Газировка</button>
-            ${
-              waitCount
-                ? `<button class="filter-chip wait-chip ${
-                    state.waitFilter ? "on" : ""
-                  }" id="wait-chip">⏳ Ждёт тебя · ${waitCount}</button>`
-                : ""
-            }
           </div>`
         : ""
     }
@@ -505,25 +454,6 @@ function renderCatalog() {
     state.search = e.target.value;
     renderGrid();
   };
-  $("#sort").onchange = (e) => {
-    state.sortBy = e.target.value;
-    renderGrid();
-  };
-  $("#dice").onclick = () => {
-    // random untasted drink from the current category
-    const pool = state.drinks.filter(
-      (d) =>
-        categoryOf(d) === state.categoryFilter && !latestEntry(d.id, state.me)
-    );
-    if (!pool.length) return alert("Всё попробовано — каталог закрыт! 🏆");
-    openRating(pool[Math.floor(Math.random() * pool.length)].id);
-  };
-  const wc = $("#wait-chip");
-  if (wc)
-    wc.onclick = () => {
-      state.waitFilter = !state.waitFilter;
-      renderCatalog();
-    };
   const catbar = $("#catbar");
   if (catbar)
     catbar.onclick = (e) => {
@@ -561,169 +491,6 @@ function renderGrid() {
     const card = e.target.closest(".card");
     if (card) openRating(card.dataset.id);
   };
-}
-
-// ---------- tier list sharing (canvas → png) ----------
-function loadImg(src) {
-  return new Promise((resolve) => {
-    const img = new Image();
-    const to = setTimeout(() => resolve(null), 4000);
-    img.onload = () => {
-      clearTimeout(to);
-      resolve(img);
-    };
-    img.onerror = () => {
-      clearTimeout(to);
-      resolve(null);
-    };
-    img.src = src;
-  });
-}
-
-function roundRect(ctx, x, y, w, h, r) {
-  ctx.beginPath();
-  ctx.moveTo(x + r, y);
-  ctx.arcTo(x + w, y, x + w, y + h, r);
-  ctx.arcTo(x + w, y + h, x, y + h, r);
-  ctx.arcTo(x, y + h, x, y, r);
-  ctx.arcTo(x, y, x + w, y, r);
-  ctx.closePath();
-}
-
-async function shareTierList() {
-  const hasSoda = state.drinks.some((d) => categoryOf(d) === "soda");
-  const pool = hasSoda
-    ? state.drinks.filter((d) => categoryOf(d) === state.tierCategory)
-    : state.drinks.slice();
-  const scored = pool
-    .map((d) => ({ d, ...aggregate(d.id, state.tierMode) }))
-    .filter((x) => x.score != null)
-    .sort((a, b) => b.score - a.score);
-  if (!scored.length) return alert("Сначала оцените что-нибудь!");
-
-  const btn = $("#share-tier");
-  if (btn) btn.disabled = true;
-
-  const W = 1080,
-    PAD = 44,
-    LABEL_W = 96,
-    TILE = 116,
-    NAME_H = 34,
-    GAP = 14,
-    HEAD = 120;
-  const perRow = Math.floor((W - PAD * 2 - LABEL_W - GAP) / (TILE + GAP));
-  const rows = TIERS.map((t) => ({
-    t,
-    items: scored.filter((x) => tierOf(x.score).k === t.k),
-  }));
-  const rowH = (n) =>
-    Math.max(1, Math.ceil(n / perRow)) * (TILE + NAME_H + GAP) + GAP;
-  const H = HEAD + rows.reduce((s, r) => s + rowH(r.items.length), 0) + PAD;
-
-  const cv = document.createElement("canvas");
-  cv.width = W;
-  cv.height = H;
-  const ctx = cv.getContext("2d");
-  ctx.fillStyle = "#0c0f16";
-  ctx.fillRect(0, 0, W, H);
-
-  const modeName =
-    state.tierMode === "all"
-      ? "Общий"
-      : state.tierMode === "me"
-      ? USER_NAMES[state.me]
-      : USER_NAMES[other(state.me)];
-  const catName = !hasSoda
-    ? ""
-    : state.tierCategory === "soda"
-    ? " · Газировка"
-    : " · Энергетики";
-  ctx.fillStyle = "#ffcc33";
-  ctx.font = "800 44px -apple-system, system-ui, sans-serif";
-  ctx.fillText("⚡ TierDrinks", PAD, 66);
-  ctx.fillStyle = "#9aa4b2";
-  ctx.font = "600 26px -apple-system, system-ui, sans-serif";
-  ctx.fillText(
-    `${modeName} тир-лист${catName} · ${scored.length} оценено`,
-    PAD,
-    102
-  );
-
-  // preload renders
-  const imgs = new Map();
-  await Promise.all(
-    scored
-      .filter((x) => x.d.image)
-      .map(async (x) => imgs.set(x.d.id, await loadImg(x.d.image)))
-  );
-
-  let y = HEAD;
-  for (const { t, items } of rows) {
-    const h = rowH(items.length) - GAP;
-    // tier label
-    ctx.fillStyle = t.color;
-    roundRect(ctx, PAD, y, LABEL_W - GAP, h, 16);
-    ctx.fill();
-    ctx.fillStyle = "#0c0f16";
-    ctx.font = "900 52px -apple-system, system-ui, sans-serif";
-    ctx.textAlign = "center";
-    ctx.fillText(t.k, PAD + (LABEL_W - GAP) / 2, y + h / 2 + 18);
-    ctx.textAlign = "left";
-    // tiles
-    items.forEach((x, i) => {
-      const cx = PAD + LABEL_W + (i % perRow) * (TILE + GAP);
-      const cy = y + Math.floor(i / perRow) * (TILE + NAME_H + GAP);
-      ctx.fillStyle = "#fff";
-      roundRect(ctx, cx, cy, TILE, TILE, 14);
-      ctx.fill();
-      const img = imgs.get(x.d.id);
-      if (img) {
-        const s = Math.min((TILE - 12) / img.width, (TILE - 12) / img.height);
-        const iw = img.width * s,
-          ih = img.height * s;
-        ctx.drawImage(img, cx + (TILE - iw) / 2, cy + (TILE - ih) / 2, iw, ih);
-      } else {
-        ctx.fillStyle = brandColor(x.d);
-        roundRect(ctx, cx + 6, cy + 6, TILE - 12, TILE - 12, 10);
-        ctx.fill();
-      }
-      // score pill
-      ctx.fillStyle = "rgba(12,15,22,.82)";
-      roundRect(ctx, cx + TILE - 46, cy + TILE - 30, 42, 26, 9);
-      ctx.fill();
-      ctx.fillStyle = "#fff";
-      ctx.font = "800 17px -apple-system, system-ui, sans-serif";
-      ctx.fillText(fmt(x.score), cx + TILE - 40, cy + TILE - 11);
-      // name
-      ctx.fillStyle = "#9aa4b2";
-      ctx.font = "600 15px -apple-system, system-ui, sans-serif";
-      let nm = x.d.name;
-      while (ctx.measureText(nm).width > TILE + GAP - 6 && nm.length > 3)
-        nm = nm.slice(0, -1);
-      if (nm !== x.d.name) nm += "…";
-      ctx.fillText(nm, cx, cy + TILE + 22);
-    });
-    y += rowH(items.length);
-  }
-
-  cv.toBlob(async (blob) => {
-    if (btn) btn.disabled = false;
-    if (!blob) return alert("Не удалось собрать картинку");
-    const file = new File([blob], "tierdrinks.png", { type: "image/png" });
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      try {
-        await navigator.share({ files: [file], title: "TierDrinks" });
-        return;
-      } catch (e) {
-        /* cancelled → fall through to download */
-      }
-    }
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = "tierdrinks.png";
-    a.click();
-    URL.revokeObjectURL(a.href);
-  }, "image/png");
 }
 
 // ---------- tier list ----------
@@ -774,16 +541,9 @@ function renderTier() {
     USER_NAMES[other(state.me)]
   )}
     </div>
-    <div class="tier-head">
-      <div class="sub-summary">${scored.length} оценено · ${
+    <div class="sub-summary">${scored.length} оценено · ${
     unrated.length
   } ждут</div>
-      ${
-        scored.length
-          ? `<button class="share-btn" id="share-tier">📤 Поделиться</button>`
-          : ""
-      }
-    </div>
     ${rows}
     ${
       unrated.length
@@ -808,8 +568,6 @@ function renderTier() {
       state.tierCategory = c.dataset.cat;
       renderTier();
     };
-  const share = $("#share-tier");
-  if (share) share.onclick = shareTierList;
   $("#view").onclick = (e) => {
     const mini = e.target.closest(".tier-mini");
     if (mini) openRating(mini.dataset.id);
@@ -1162,114 +920,6 @@ function renderStats() {
     .sort((a, b) => b[1] - a[1])
     .slice(0, 5);
 
-  // achievements: per-user tests get М/Т badges, pair tests are shared
-  const cansOf = (u) => state.log.filter((x) => x.user === u).length;
-  const uniqIds = (u) =>
-    new Set(state.log.filter((x) => x.user === u).map((x) => x.drinkId));
-  const uniqWhere = (u, pred) =>
-    [...uniqIds(u)].map(drinkById).filter(Boolean).filter(pred).length;
-  const uniqBrandsOf = (u) =>
-    new Set(
-      [...uniqIds(u)]
-        .map(drinkById)
-        .filter(Boolean)
-        .map((d) => d.brand)
-    ).size;
-  const ACH = [
-    {
-      e: "🥤",
-      n: "Первая банка",
-      d: "первая дегустация",
-      per: (u) => cansOf(u) >= 1,
-    },
-    { e: "🔟", n: "Дегустатор", d: "10 банок", per: (u) => cansOf(u) >= 10 },
-    { e: "🏃", n: "Марафонец", d: "25 банок", per: (u) => cansOf(u) >= 25 },
-    { e: "💯", n: "Полтинник", d: "50 банок", per: (u) => cansOf(u) >= 50 },
-    {
-      e: "⭐",
-      n: "Первый S",
-      d: "поставить оценку 9+",
-      per: (u) => state.log.some((x) => x.user === u && entryScore(x) >= 9),
-    },
-    {
-      e: "🧊",
-      n: "Строгий судья",
-      d: "поставить оценку ≤ 2",
-      per: (u) => state.log.some((x) => x.user === u && entryScore(x) <= 2),
-    },
-    {
-      e: "💸",
-      n: "Мажор",
-      d: "потратить 1000 ₽",
-      per: (u) => spend[u].total >= 1000,
-    },
-    {
-      e: "🏦",
-      n: "Инвестор",
-      d: "потратить 5000 ₽",
-      per: (u) => spend[u].total >= 5000,
-    },
-    {
-      e: "🥂",
-      n: "Газировщик",
-      d: "5 разных газировок",
-      per: (u) => uniqWhere(u, (d) => categoryOf(d) === "soda") >= 5,
-    },
-    {
-      e: "😈",
-      n: "Монстролог",
-      d: "10 разных Monster",
-      per: (u) => uniqWhere(u, (d) => d.brand === "Monster") >= 10,
-    },
-    {
-      e: "🐂",
-      n: "Быколюб",
-      d: "8 разных Red Bull",
-      per: (u) => uniqWhere(u, (d) => d.brand === "Red Bull") >= 8,
-    },
-    {
-      e: "🧭",
-      n: "Исследователь",
-      d: "10 разных брендов",
-      per: (u) => uniqBrandsOf(u) >= 10,
-    },
-    {
-      e: "🤝",
-      n: "Дуэт",
-      d: "10 общих напитков",
-      pair: () => both.length >= 10,
-    },
-    {
-      e: "⚔️",
-      n: "Спорщик",
-      d: "разойтись на 5+ баллов",
-      pair: () => both.some((x) => x.diff >= 5),
-    },
-    {
-      e: "🫶",
-      n: "Синхрон",
-      d: "5 почти одинаковых оценок",
-      pair: () => both.filter((x) => x.diff <= 0.5).length >= 5,
-    },
-  ];
-  let achGot = 0;
-  const achRows = ACH.map((a) => {
-    const gotA = a.per ? a.per("a") : a.pair();
-    const gotB = a.per ? a.per("b") : gotA;
-    const unlocked = gotA || gotB;
-    if (unlocked) achGot++;
-    const who = a.per
-      ? [gotA ? "М" : null, gotB ? "Т" : null].filter(Boolean).join("")
-      : unlocked
-      ? "МТ"
-      : "";
-    return `<div class="ach ${unlocked ? "got" : ""}">
-      <span class="ach-e">${a.e}</span>
-      <span class="ach-txt"><b>${a.n}</b><small>${a.d}</small></span>
-      ${who ? `<span class="ach-who">${who}</span>` : ""}
-    </div>`;
-  }).join("");
-
   $("#view").innerHTML = `
     <section class="stat-sec">
       <h3>🥤 Выпито</h3>
@@ -1368,11 +1018,6 @@ function renderStats() {
     </section>`
         : ""
     }
-
-    <section class="stat-sec">
-      <h3>🎖 Ачивки · ${achGot}/${ACH.length}</h3>
-      <div class="ach-grid">${achRows}</div>
-    </section>
 
     <section class="stat-sec">
       <h3>💸 Динамика цен</h3>
