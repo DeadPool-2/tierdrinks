@@ -178,6 +178,87 @@ export const SEED_DRINKS = [
   D(
     "Monster",
     "Original",
+    "Monster Energy Zero Sugar",
+    "Оригинал без сахара",
+    0.473,
+    null,
+    "Классический Monster без сахара."
+  ),
+  D(
+    "Monster",
+    "Original",
+    "Monster Energy Lo-Carb",
+    "Оригинал с пониженным сахаром",
+    0.473,
+    null,
+    "Лёгкая версия классического зелёного Monster."
+  ),
+  D(
+    "Monster",
+    "Original",
+    "Monster Energy Strawberry Shot",
+    "Клубника",
+    0.473,
+    null,
+    "Клубничная версия классического Monster."
+  ),
+  D(
+    "Monster",
+    "Original",
+    "Monster Energy Zero Sugar Strawberry Shot",
+    "Клубника без сахара",
+    0.473,
+    null,
+    "Клубничный Monster без сахара."
+  ),
+  D(
+    "Monster",
+    "Original",
+    "Monster Energy Lando Norris",
+    "Юдзу-дыня, без сахара",
+    0.473,
+    null,
+    "Zero Sugar лимитка Lando Norris."
+  ),
+  D(
+    "Monster",
+    "Original",
+    "Monster Energy Electric Blue",
+    "Синяя малина",
+    0.473,
+    null,
+    "Синяя малина в стиле popsicle."
+  ),
+  D(
+    "Monster",
+    "Original",
+    "Monster Energy Orange Dreamsicle",
+    "Апельсин-крем",
+    0.473,
+    null,
+    "Апельсиновый пломбир в основной линейке."
+  ),
+  D(
+    "Monster",
+    "Original",
+    "Monster Energy Nitro Super Dry",
+    "Цитрус, нитро",
+    0.473,
+    null,
+    "Нитро-версия с сухим цитрусовым профилем."
+  ),
+  D(
+    "Monster",
+    "Original",
+    "Monster Energy Super-Premium Import",
+    "Оригинал, импорт",
+    0.55,
+    null,
+    "Импортная версия классического Monster."
+  ),
+  D(
+    "Monster",
+    "Original",
     "Monster Assault",
     "Кола-вишня",
     0.449,
@@ -238,6 +319,96 @@ export const SEED_DRINKS = [
     0.449,
     150,
     "Манго-фиеста."
+  ),
+  D(
+    "Monster",
+    "Ultra",
+    "Monster Ultra Red White Blue Razz",
+    "Синяя малина, без сахара",
+    0.473,
+    null,
+    "Ягодно-леденцовый Ultra без сахара."
+  ),
+  D(
+    "Monster",
+    "Ultra",
+    "Monster Ultra Punk Punch",
+    "Фруктовый пунш, без сахара",
+    0.473,
+    null,
+    "Панк-пунш в линейке Ultra."
+  ),
+  D(
+    "Monster",
+    "Ultra",
+    "Monster Ultra Blue Hawaiian",
+    "Тропик-кокос, без сахара",
+    0.473,
+    null,
+    "Тропический Ultra в стиле Blue Hawaiian."
+  ),
+  D(
+    "Monster",
+    "Ultra",
+    "Monster Ultra Vice Guava",
+    "Гуава, без сахара",
+    0.473,
+    null,
+    "Гуава в линейке Ultra."
+  ),
+  D(
+    "Monster",
+    "Ultra",
+    "Monster Ultra Wild Passion",
+    "Маракуйя, без сахара",
+    0.473,
+    null,
+    "Маракуйя в линейке Ultra."
+  ),
+  D(
+    "Monster",
+    "Ultra",
+    "Monster Ultra Strawberry Dreams",
+    "Клубника, без сахара",
+    0.473,
+    null,
+    "Клубничный Ultra без сахара."
+  ),
+  D(
+    "Monster",
+    "Ultra",
+    "Monster Ultra Fantasy Ruby Red",
+    "Грейпфрут, без сахара",
+    0.473,
+    null,
+    "Ruby Red грейпфрут без сахара."
+  ),
+  D(
+    "Monster",
+    "Ultra",
+    "Monster Ultra Red",
+    "Ягоды, без сахара",
+    0.473,
+    null,
+    "Красный ягодный Ultra."
+  ),
+  D(
+    "Monster",
+    "Ultra",
+    "Monster Ultra Blue",
+    "Ягоды, без сахара",
+    0.473,
+    null,
+    "Синий ягодный Ultra."
+  ),
+  D(
+    "Monster",
+    "Ultra",
+    "Monster Ultra Black",
+    "Чёрная вишня, без сахара",
+    0.473,
+    null,
+    "Чёрная вишня в линейке Ultra."
   ),
   D(
     "Monster",
@@ -304,6 +475,51 @@ export const SEED_DRINKS = [
   ),
   D(
     "Monster",
+    "Juiced",
+    "Monster Strawberry Lemonade",
+    "Клубничный лимонад",
+    0.473,
+    null,
+    "Соковый Monster с клубникой и лимонадом."
+  ),
+  D(
+    "Monster",
+    "Juiced",
+    "Monster Voodoo Grape",
+    "Виноград",
+    0.473,
+    null,
+    "Соковый Monster с виноградом."
+  ),
+  D(
+    "Monster",
+    "Juiced",
+    "Monster Viking Berry",
+    "Скандинавские ягоды",
+    0.473,
+    null,
+    "Ягодный соковый Monster."
+  ),
+  D(
+    "Monster",
+    "Juiced",
+    "Monster Bad Apple",
+    "Яблоко",
+    0.473,
+    null,
+    "Соковый Monster с яблоком."
+  ),
+  D(
+    "Monster",
+    "Juiced",
+    "Monster Rio Punch",
+    "Тропический пунш",
+    0.473,
+    null,
+    "Тропический соковый пунш."
+  ),
+  D(
+    "Monster",
     "Rehab",
     "Monster Rehab Tea + Lemonade",
     "Чай-лимонад",
@@ -328,6 +544,15 @@ export const SEED_DRINKS = [
     0.458,
     160,
     "Ягодный холодный чай."
+  ),
+  D(
+    "Monster",
+    "Rehab",
+    "Monster Rehab Green Tea",
+    "Зелёный чай",
+    0.458,
+    null,
+    "Негазированный зелёный чай."
   ),
   D(
     "Monster",
@@ -358,6 +583,42 @@ export const SEED_DRINKS = [
   ),
   D(
     "Monster",
+    "Java",
+    "Monster Java Café Latte",
+    "Кофе латте",
+    0.443,
+    null,
+    "Кофейный Monster с латте."
+  ),
+  D(
+    "Monster",
+    "Java",
+    "Monster Java Irish Crème",
+    "Айриш-крим",
+    0.443,
+    null,
+    "Кофейный Monster с ирландским кремом."
+  ),
+  D(
+    "Monster",
+    "Java",
+    "Monster Killer Brew Loca Moca",
+    "Кофе-мокко",
+    0.443,
+    null,
+    "Killer Brew в варианте Loca Moca."
+  ),
+  D(
+    "Monster",
+    "Java",
+    "Monster Killer Brew Mean Bean",
+    "Кофе",
+    0.443,
+    null,
+    "Killer Brew в варианте Mean Bean."
+  ),
+  D(
+    "Monster",
     "Reserve",
     "Monster Reserve White Pineapple",
     "Ананас",
@@ -382,6 +643,15 @@ export const SEED_DRINKS = [
     0.449,
     160,
     "Апельсин со сливками."
+  ),
+  D(
+    "Monster",
+    "Reserve",
+    "Monster Reserve Peaches n' Crème",
+    "Персик-крем",
+    0.473,
+    null,
+    "Персик со сливками в линейке Reserve."
   ),
 
   // ─── Adrenaline Rush ─── Rush / Juicy / Game Fuel
