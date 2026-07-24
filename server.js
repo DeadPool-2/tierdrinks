@@ -287,7 +287,7 @@ async function serveStatic(res, baseDir, relPath) {
 }
 
 // ---------- validation ----------
-const AXES = ["taste", "value", "aftertaste"];
+const AXES = ["taste", "aftertaste"];
 const clampScore = (v) => {
   const n = Number(v);
   if (!Number.isFinite(n)) return null;

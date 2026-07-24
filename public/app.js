@@ -2,7 +2,6 @@
 
 const AXES = [
   { key: "taste", label: "Вкус" },
-  { key: "value", label: "Цена/качество" },
   { key: "aftertaste", label: "Послевкусие" },
 ];
 

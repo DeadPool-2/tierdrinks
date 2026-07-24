@@ -9,7 +9,7 @@ define('DATA_DIR', __DIR__ . '/data');
 define('DB', DATA_DIR . '/db.json');
 define('SEED', DATA_DIR . '/seed.json');
 
-$AXES = array('taste', 'value', 'aftertaste');
+$AXES = array('taste', 'aftertaste');
 
 function jexit($code, $obj) {
   http_response_code($code);
