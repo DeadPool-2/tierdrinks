@@ -2,7 +2,6 @@
 
 const AXES = [
   { key: "taste", label: "Вкус" },
-  { key: "energy", label: "Бодрость" },
   { key: "value", label: "Цена/качество" },
   { key: "aftertaste", label: "Послевкусие" },
 ];
@@ -188,7 +187,8 @@ function spark(values, color = "#ffcc33", w = 96, h = 28) {
 }
 
 // ---------- scoring (log-based) ----------
-const entryScore = (e) => (e.taste + e.energy + e.value + e.aftertaste) / 4;
+const entryScore = (e) =>
+  AXES.reduce((sum, axis) => sum + Number(e[axis.key] || 0), 0) / AXES.length;
 const logFor = (drinkId, user) =>
   state.log
     .filter((e) => e.drinkId === drinkId && e.user === user)
